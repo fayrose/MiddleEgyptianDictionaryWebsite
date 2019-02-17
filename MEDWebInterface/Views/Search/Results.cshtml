@@ -1,0 +1,56 @@
+﻿@model MEDWebInterface.Models.Result
+@using MEDWebInterface.Services
+@using MEDWebInterface.Models
+<div>
+    <h4>Result</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Hieroglyphs</th>
+            <th>Transliteration</th>
+            <th>Gardiner Signs</th>
+            <th>Translations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null && Model.Results != null)
+            {
+                foreach (var result in Model.Results)
+                {
+                <tr>
+                    <td>
+                        <span class="large_text large-text">
+                            @GardinerConverter.ConvertGardiner(result.gardinerSigns)
+                        </span>  
+                    </td>
+                    <td>
+                        @result.transliteration
+                    </td>
+                    <td>
+                        @result.gardinerSigns
+                    </td>
+                    @if (result.Translations != null && result.Translations.Count > 0)
+                    {
+                        <td>
+                            <ul>
+                                @foreach (var translation in result.Translations)
+                                {
+                                    <li>@translation.translation1</li>
+                                }
+                            </ul>
+                        </td>
+                    }
+                </tr>
+                    }
+                }
+            }
+    </tbody>
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

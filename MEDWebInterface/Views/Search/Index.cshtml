@@ -1,0 +1,57 @@
+﻿@model MEDWebInterface.Models.SearchQuery
+@{
+    ViewBag.Title = "Search";
+}
+<script type="text/javascript" language="javascript" src="~/Scripts/searchform.js"></script>
+<h2 class="top_margin">@ViewBag.Title.</h2>
+<h5>@ViewBag.Message</h5>
+<hr />
+@using MEDWebInterface.Models;
+@if (TempData.Keys.Contains("ex"))
+{
+    <!--Show error feedback contained in TempData-->
+    <label class="alert-danger">@TempData["ex"]</label>
+}
+@using (Html.BeginForm("Submit", "Search", FormMethod.Post))
+{
+    <div style="align-items:center; justify-content:center; display:flex;">
+        <div style="display:block">
+            <div class="search_div">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-danger search_config">
+                        @Html.RadioButtonFor(x => x.Type, SearchType.all, new { @style="display:none;" }) All
+                    </label>
+                    <label class="btn btn-outline-danger search_config active">
+                        @Html.RadioButtonFor(x => x.Type, SearchType.transliteration, new { @style="display:none;", @checked = "checked" }) Transliteration
+                    </label>
+                    <label class="btn btn-outline-danger search_config">
+                        @Html.RadioButtonFor(x => x.Type, SearchType.translation, new { @style="display:none;"}) Translation
+                    </label>
+                    <label class="btn btn-outline-danger search_config">
+                        @Html.RadioButtonFor(x => x.Type, SearchType.gardiner, new { @style="display:none;"}) Gardiner Sign
+                    </label>
+                </div>
+
+            </div>
+
+                <div class="search_div">
+                    <div class="input-group">
+                        @Html.TextBoxFor(x => x.Query, htmlAttributes: new { @class = "form-control", @placeholder = "Search..." })
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" value="Submit">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="search_div">
+                    <label id="exact-match" class="btn btn-outline-danger search_config active" onchange="ExactMatchToggle()">
+                        @Html.CheckBoxFor(x => x.ExactMatch, htmlAttributes: new { @autocomplete = "off", @style = "display:none;", @id = "match-check", @checked = "checked" })
+                        Exact Match
+                    </label>
+                </div>
+            </div>
+    </div>
+}
