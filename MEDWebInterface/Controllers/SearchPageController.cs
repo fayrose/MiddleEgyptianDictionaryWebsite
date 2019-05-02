@@ -1,18 +1,13 @@
 ﻿using MEDWebInterface.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using MiddleEgyptianDictionaryModel;
-using System.Web.WebPages;
-using System.Net.Http;
+using MiddleEgyptianDictionary;
 
 namespace MEDWebInterface.Controllers
 {
     public class SearchController : Controller
     {
-        MiddleEgyptianDictionaryEntities db;
         WordFinder wf;
 
         // GET: SearchPage
@@ -27,7 +22,7 @@ namespace MEDWebInterface.Controllers
         {
             try
             {
-                List<Dictionary> results = SearchDatabase(userInput);
+                List<DictionaryEntry> results = SearchDatabase(userInput);
                 // Redirect to proper route that displays
                 Result packaged = new Result() { Results = results };
                 TempData["results"] = packaged;
@@ -36,7 +31,7 @@ namespace MEDWebInterface.Controllers
             catch (Exception ex)
             {
                 TempData["ex"] = ex.StackTrace;
-                return View();
+                return RedirectToAction("Results");
             }
         }
 
@@ -48,18 +43,13 @@ namespace MEDWebInterface.Controllers
 
         private void DefineVariables()
         {
-            if (db is default(MiddleEgyptianDictionaryEntities))
-            {
-                Uri uri = new Uri("http://egyptiandictionary.azurewebsites.net/DictionaryData.svc/");
-                db = new MiddleEgyptianDictionaryEntities(uri);
-            }
             if (wf is default(WordFinder))
             {
-                wf = new WordFinder(db);
+                wf = new WordFinder(Constants.ConnectionString);
             }
         }
 
-        private List<Dictionary> SearchDatabase(SearchQuery query)
+        private List<DictionaryEntry> SearchDatabase(SearchQuery query)
         {
             DefineVariables();
             return wf.ConductSearch(query);

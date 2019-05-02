@@ -29,7 +29,7 @@
                         </span>  
                     </td>
                     <td>
-                        @result.transliteration
+                        @GardinerConverter.PrettifyTransliteration(result.transliteration)
                     </td>
                     <td>
                         @result.gardinerSigns
@@ -40,7 +40,7 @@
                             <ul>
                                 @foreach (var translation in result.Translations)
                                 {
-                                    <li>@translation.translation1</li>
+                                    <li>@translation.translation - @translation.TranslationMetadata.DictionaryName.ToString()</li>
                                 }
                             </ul>
                         </td>

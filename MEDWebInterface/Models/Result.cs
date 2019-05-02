@@ -1,18 +1,15 @@
-﻿using MiddleEgyptianDictionaryModel;
-using System;
+﻿using MiddleEgyptianDictionary;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace MEDWebInterface.Models
 {
     public class Result
     {
-        public List<Dictionary> Results { get; set; }
+        public List<DictionaryEntry> Results { get; set; }
 
         public Result()
         {
-            Results = new List<Dictionary>();
+            Results = new List<DictionaryEntry>();
         }
     }
 }

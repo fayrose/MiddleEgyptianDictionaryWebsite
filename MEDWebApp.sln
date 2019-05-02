@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEDWebApp", "MEDWebApp\MEDWebApp.csproj", "{F2CBDA12-C6F1-4BAD-A801-982B5A4F2B45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEDWebInterface", "MEDWebInterface\MEDWebInterface.csproj", "{44FC1710-A9E1-472C-B50E-FC657792CB4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddleEgyptianDictionary", "..\MiddleEgyptianDictionary\MiddleEgyptianDictionary\MiddleEgyptianDictionary.csproj", "{C7D64907-59EF-47A7-BC51-4EA566DE5F19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F2CBDA12-C6F1-4BAD-A801-982B5A4F2B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F2CBDA12-C6F1-4BAD-A801-982B5A4F2B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F2CBDA12-C6F1-4BAD-A801-982B5A4F2B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F2CBDA12-C6F1-4BAD-A801-982B5A4F2B45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44FC1710-A9E1-472C-B50E-FC657792CB4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44FC1710-A9E1-472C-B50E-FC657792CB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44FC1710-A9E1-472C-B50E-FC657792CB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44FC1710-A9E1-472C-B50E-FC657792CB4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7D64907-59EF-47A7-BC51-4EA566DE5F19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7D64907-59EF-47A7-BC51-4EA566DE5F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7D64907-59EF-47A7-BC51-4EA566DE5F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7D64907-59EF-47A7-BC51-4EA566DE5F19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

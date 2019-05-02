@@ -1,19 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using MEDWebInterface.Models;
-using MiddleEgyptianDictionaryModel;
+using MongoDB.Driver;
+using MiddleEgyptianDictionary;
 
 namespace MEDWebInterface
 {
     public class WordFinder
     {
-        MiddleEgyptianDictionaryEntities dbContext;
-        public WordFinder(MiddleEgyptianDictionaryEntities db)
+        IMongoCollection<DictionaryEntry> collection;
+        public WordFinder(string connectionString)
         {
-            dbContext = db;
+            MongoClientSettings settings = MongoClientSettings.FromUrl(
+              new MongoUrl(Constants.ConnectionString)
+            );
+            settings.SslSettings =
+              new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+            var mongoDb = new MongoClient(settings).GetDatabase("MiddleEgyptianDictionary");
+            collection = mongoDb.GetCollection<DictionaryEntry>("Entries");
         }
 
-        public List<Dictionary> ConductSearch(SearchQuery query)
+        public List<DictionaryEntry> ConductSearch(SearchQuery query)
         {
             switch (query.Type)
             {
@@ -29,91 +37,38 @@ namespace MEDWebInterface
             }
         }
 
-        private List<Dictionary> SearchByTransliteration(string transliteration, bool exactMatch)
+        private List<DictionaryEntry> SearchByTransliteration(string transliteration, bool exactMatch)
         {
-            if (exactMatch)
-            {
-                return dbContext.Dictionaries
-                .Expand(x => x.Translations)
-                .Where(x => x.transliteration.Equals(transliteration, System.StringComparison.CurrentCulture))
-                .OrderBy(x => x.transliteration)
-                .ToList();
-            }
-            else
-            {
-                return dbContext.Dictionaries
-                .Expand(x => x.Translations)
-                .Where(x => x.transliteration.Contains(transliteration))
-                .OrderBy(x => x.transliteration)
-                .ToList();
-            }
+            return exactMatch ? collection.Find(x => x.transliteration == transliteration).ToList() :
+                   collection.Find(x => x.transliteration.Contains(transliteration)).ToList();
         }
 
-        private List<Dictionary> SearchByGardinerSigns(string gardinerSigns, bool exactMatch)
+        private List<DictionaryEntry> SearchByGardinerSigns(string gardinerSigns, bool exactMatch)
         {
-            IOrderedQueryable<Dictionary> answer;
-            if (exactMatch)
-            {
-                answer = dbContext.Dictionaries
-                .Expand(x => x.Translations)
-                .Where(x => x.gardinerSigns.Equals(gardinerSigns, System.StringComparison.CurrentCulture))
-                .OrderBy(x => x.transliteration);
-            } else
-            {
-                answer = dbContext.Dictionaries
-                .Expand(x => x.Translations)
-                .Where(x => x.gardinerSigns.Contains(gardinerSigns))
-                .OrderBy(x => x.transliteration);
-            }
-            return answer.ToList();
+            return exactMatch ? collection.Find(x => x.gardinerSigns == gardinerSigns).ToList() :
+                   collection.Find(x => x.gardinerSigns.Contains(gardinerSigns)).ToList();
+            
         }
 
-        private List<Dictionary> SearchByTranslation(string translation, bool exactMatch)
-        {
-            List<Translation> answer;
+        private List<DictionaryEntry> SearchByTranslation(string translation, bool exactMatch)
+        { 
             if (exactMatch)
             {
-                answer = dbContext.Translations
-                .Expand(x => x.Dictionary)
-                .Where(x => x.translation1.Equals(translation, System.StringComparison.CurrentCulture))
-                .ToList();
+                var filter = Builders<DictionaryEntry>.Filter.Eq("Translations.translation", translation);
+                return collection.Find(filter).ToList();
             }
-            else
-            {
-                answer = dbContext.Translations
-                .Expand(x => x.Dictionary)
-                .Where(x => x.translation1.Contains(translation))
-                .ToList();
-            }
-            return answer.Select(x => x.Dictionary).ToList();
+            return collection.Find(x => x.Translations.Any( y => y.translation.Contains(translation))).ToList();
         }
 
-        private List<Dictionary> SearchAll(string input, bool exactMatch)
+        private List<DictionaryEntry> SearchAll(string input, bool exactMatch)
         {
-            if (exactMatch)
-            {
-                var signsTranslit = dbContext.Dictionaries
-                    .Expand(x => x.Translations)
-                    .Where(x => x.gardinerSigns == input || x.transliteration == input)
-                    .ToList();
-                var translation = dbContext.Translations
-                    .Expand(x => x.Dictionary)
-                    .Where(x => x.translation1 == input)
-                    .ToList();
-                return signsTranslit.Concat(translation.Select(x => x.Dictionary)).ToList();
-            }
-            else
-            {
-                var signsTranslit = dbContext.Dictionaries
-                    .Expand(x => x.Translations)
-                    .Where(x => x.gardinerSigns.Contains(input) || x.transliteration.Contains(input))
-                    .ToList();
-                var translation = dbContext.Translations
-                    .Expand(x => x.Dictionary)
-                    .Where(x => x.translation1.Contains(input))
-                    .ToList();      
-                return signsTranslit.Concat(translation.Select(x => x.Dictionary)).ToList();
-            }
+            var signsTranslit = exactMatch ? 
+                collection.Find(x => x.transliteration == input || 
+                                x.gardinerSigns == input).ToList() : 
+                collection.Find(x => x.transliteration.Contains(input) || 
+                                x.gardinerSigns.Contains(input)).ToList();
+            return signsTranslit.Concat(SearchByTranslation(input, exactMatch)).ToList();
+
         }
     }
 }
