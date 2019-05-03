@@ -16,3 +16,7 @@ Manuel de Codage: Q3\*X1:N1 , alternatively p\*t:pt
 New Unicode: Q3 (\U13431) X1 (\U13430) N1
 
 I plan to add the dictionary parser project to this solution as well.
+
+## My experience with Middle Egyptian
+I am a student at the University of Toronto studying computer science. After two years of taking Middle Egyptian as an elective, I thought I should try to expand accessibility to the language by providing an easy way to view a dictionary database online. I had been quite frustrated as the only online resources were searchable pdfs. Often when searching for transliterations, I would wind up with 200 results, many of which were translation matches. In parsing and combining three dictionaries, I aimed to allow more specific searches while remove redundancy between dictionaries. 
+If given the time, I would love to expand the project in order to encompass larger natural language processing problems, as it is an area of great interest. The main barriers to entry as of now are word and sentence resolution, as Middle Egyptian has neither spaces nor punctuation. Once the tri-glyph analysis is complete and I am more comfortable with the language, I will begin working on a transliteration to English translator based upon IBM Model 1. This may be limited by the small amounts of data for which I have aligned translations.
