@@ -17,6 +17,11 @@ namespace MEDWebInterface.Controllers
             return View();
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Submit(SearchQuery userInput)
         {

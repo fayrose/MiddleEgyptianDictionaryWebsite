@@ -1,0 +1,29 @@
+﻿@model MEDWebInterface.Models.SearchQuery
+@{
+    ViewBag.Title = "About";
+}
+<div>
+    <meta name="viewport" content="width=device-width" />
+    <h2 class="top_margin">About Project</h2>
+    <p>
+        This is dictionary database for Middle Egyptian hieroglyphics, combining the Paul Dickson dictionary (2006), the Mark Vygus dictionary (2012) and a third lexicon originally from OpenGlyp (that I found through the Morris Franken dataset for "Automatic Egyptian Hieroglyph Recognition by Retrieving Images as Texts") into a searchable database.
+        This database specifically focuses on Ancient Egyptian hieroglyphics from the Middle Kingdom, although some hieratic signs may be found.
+    </p>
+    <p>
+        This project is currently ongoing, and I plan to extend it in accordance with the Unicode 12.0 additions for formatting hieroglyphics. This will allow glyphs to be viewed in their original block forms, as opposed to in sequential letters.
+        As I have not been able to find a dictionary that provides Manuel de Codage formatting, I am taking trigrams over the texts from JSesh to establish the formatting of common words. After this, I will map the trigrams to dictionary entries, and then
+        convert the Manuel de Codage to Unicode 12.0.
+    </p>
+</div>
+<div>
+    <h2>About Me</h2>
+    <p>
+        I am a student at the University of Toronto studying computer science. After two years of taking Middle Egyptian as an elective, I thought I should try to expand accessibility to the language by providing an easy way to view a dictionary database online.
+        I had been quite frustrated as the only online resources were searchable pdfs. Often when searching for transliterations, I would wind up with 200 results, many of which were translation matches. In parsing and combining three dictionaries, I aimed to allow more specific searches while remove redundancy between dictionaries.
+    </p>
+    <p>
+        If given the time, I would love to expand the project in order to encompass larger natural language processing problems, as it is an area of great interest. The main barriers to entry as of now are
+        word and sentence resolution, as Middle Egyptian has neither spaces nor punctuation. Once the tri-glyph analysis is complete and I am more comfortable with the language, I will begin working on a transliteration to English translator based upon IBM Model 1.
+        This may be limited by the small amounts of data for which I have aligned translations. 
+    </p>
+</div>
