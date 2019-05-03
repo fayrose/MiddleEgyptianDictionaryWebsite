@@ -64,6 +64,10 @@ namespace MEDWebInterface.Services
         public static string FixIncongruentLettering(string glyph)
         {
             string answer = glyph;
+            if (answer == "Y1v" || answer == "Y1V")
+            {
+                answer = "Y1A";
+            }
             if (answer.StartsWith("J"))
             {
                 answer = "AA" + glyph.Substring(1);
