@@ -39,14 +39,14 @@ namespace MEDWebInterface
 
         private List<DictionaryEntry> SearchByTransliteration(string transliteration, bool exactMatch)
         {
-            return exactMatch ? collection.Find(x => x.transliteration == transliteration).ToList() :
-                   collection.Find(x => x.transliteration.Contains(transliteration)).ToList();
+            return exactMatch ? collection.Find(x => x.Transliteration == transliteration).ToList() :
+                   collection.Find(x => x.Transliteration.Contains(transliteration)).ToList();
         }
 
         private List<DictionaryEntry> SearchByGardinerSigns(string gardinerSigns, bool exactMatch)
         {
-            return exactMatch ? collection.Find(x => x.gardinerSigns == gardinerSigns).ToList() :
-                   collection.Find(x => x.gardinerSigns.Contains(gardinerSigns)).ToList();
+            return exactMatch ? collection.Find(x => x.GardinerSigns == gardinerSigns).ToList() :
+                   collection.Find(x => x.GardinerSigns.Contains(gardinerSigns)).ToList();
             
         }
 
@@ -63,10 +63,10 @@ namespace MEDWebInterface
         private List<DictionaryEntry> SearchAll(string input, bool exactMatch)
         {
             var signsTranslit = exactMatch ? 
-                collection.Find(x => x.transliteration == input || 
-                                x.gardinerSigns == input).ToList() : 
-                collection.Find(x => x.transliteration.Contains(input) || 
-                                x.gardinerSigns.Contains(input)).ToList();
+                collection.Find(x => x.Transliteration == input || 
+                                x.GardinerSigns == input).ToList() : 
+                collection.Find(x => x.Transliteration.Contains(input) || 
+                                x.GardinerSigns.Contains(input)).ToList();
             return signsTranslit.Concat(SearchByTranslation(input, exactMatch)).ToList();
 
         }
