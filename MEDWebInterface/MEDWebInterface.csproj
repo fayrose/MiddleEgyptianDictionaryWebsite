@@ -250,6 +250,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\res.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -275,6 +276,9 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\CaslonRoman.ttf" />
+    <Content Include="Content\HieroglyphicAux.ttf" />
+    <Content Include="Content\NewGardiner.ttf" />
     <None Include="Properties\PublishProfiles\MiddleEgyptian - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -291,6 +295,14 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\res\res_aux.js" />
+    <Content Include="Scripts\res\res_format.js" />
+    <Content Include="Scripts\res\res_lite.js" />
+    <Content Include="Scripts\res\res_points.js" />
+    <Content Include="Scripts\res\res_render.js" />
+    <Content Include="Scripts\res\res_struct.js" />
+    <Content Include="Scripts\res\res_syntax.js" />
+    <Content Include="Scripts\res\res_web.js" />
     <Content Include="Scripts\searchform.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />

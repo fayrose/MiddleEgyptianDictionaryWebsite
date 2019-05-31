@@ -12,14 +12,16 @@ namespace MiddleEgyptianDictionary
         {
             this.Translations = new HashSet<Translation>();
         }
-        public string transliteration { get; set; }
-        public string gardinerSigns { get; set; }
+        public string Transliteration { get; set; }
+        public string GardinerSigns { get; set; }
+        public string ManuelDeCodage { get; set; }
+        public string Res { get; set; }
         public virtual ICollection<Translation> Translations { get; set; }
 
         public override string ToString()
         {
-            return GardinerConverter.ConvertGardiner(this.gardinerSigns) +
-                   "(" + this.transliteration + "): " +
+            return GardinerConverter.ConvertGardiner(this.GardinerSigns) +
+                   "(" + this.Transliteration + "): " +
                    this.Translations.FirstOrDefault().translation;
         }
 

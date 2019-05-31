@@ -12,6 +12,8 @@
     <!--Show error feedback contained in TempData-->
     <label class="alert-danger">@TempData["ex"]</label>
 }
+    <label style="font-size: 50px;">
+    </label>
 @using (Html.BeginForm("Submit", "Search", FormMethod.Post))
 {
     <div style="align-items:center; justify-content:center; display:flex;">
@@ -47,9 +49,16 @@
                 </div>
 
                 <div class="search_div">
-                    <label id="exact-match" class="btn btn-outline-danger search_config active" onchange="ExactMatchToggle()">
-                        @Html.CheckBoxFor(x => x.ExactMatch, htmlAttributes: new { @autocomplete = "off", @style = "display:none;", @id = "match-check", @checked = "checked" })
+                    <label id="exact-match" class="my-toggle btn btn-outline-danger search_config active" onchange="MyToggle()">
+                        @Html.CheckBoxFor(x => x.ExactMatch, htmlAttributes: new { @autocomplete = "off", @style = "display:none;", @class = "toggle-check", @checked = "checked" })
                         Exact Match
+                    </label>
+                </div>
+
+                <div class="search_div">
+                    <label id="formatted-toggle" class="my-toggle btn btn-outline-danger search_config active" onchange="MyToggle()">
+                        @Html.CheckBoxFor(x => x.DisplayFormatted, htmlAttributes: new { @autocomplete = "off", @style = "display:none;", @class = "toggle-check", @checked = "checked" })
+                        Display Formatted (May take longer to render)
                     </label>
                 </div>
             </div>
