@@ -29,7 +29,11 @@ namespace MEDWebInterface.Controllers
             {
                 List<DictionaryEntry> results = SearchDatabase(userInput);
                 // Redirect to proper route that displays
-                Result packaged = new Result() { Results = results };
+                Result packaged = new Result()
+                { 
+                  Results = results,
+                  DisplayFormatted = userInput.DisplayFormatted
+                };
                 TempData["results"] = packaged;
                 return RedirectToAction("Results");
             }

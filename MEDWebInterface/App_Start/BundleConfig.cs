@@ -25,6 +25,21 @@ namespace MEDWebInterface
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/res").Include(
+                "~/Content/res.css"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/res").Include(
+                "~/Scripts/res/res_aux.js",
+                "~/Scripts/res/res_points.js",
+                "~/Scripts/res/res_lite.js",
+                "~/Scripts/res/res_struct.js",
+                "~/Scripts/res/res_syntax.js",
+                "~/Scripts/res/res_format.js",
+                "~/Scripts/res/res_render.js",
+                "~/Scripts/res/res_web.js"
+                ));
         }
     }
 }

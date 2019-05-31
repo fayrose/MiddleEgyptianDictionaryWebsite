@@ -26,12 +26,12 @@ function SignTypeClick() {
     $("#all-type").removeClass("radio_active active").addClass("radio_not_active");
 };
 
-function ExactMatchToggle() {
-    if ($("#exact-match").hasClass("active")) {
-        $("#exact-match").removeClass("active");
-        $("#match-check").prop('checked', false);
+function MyToggle() {
+    if ($(".my-toggle").hasClass("active")) {
+        $(".my-toggle").removeClass("active");
+        $(".toggle-check").prop('checked', false);
     } else {
-        $("#exact-match").addClass("active");
-        $("#match-check").prop('checked', true);
+        $(".my-toggle").addClass("active");
+        $(".toggle-check").prop('checked', true);
     }
 }
