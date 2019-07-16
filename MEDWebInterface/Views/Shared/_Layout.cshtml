@@ -10,8 +10,8 @@
     @Scripts.Render("~/bundles/res")
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 </head>
-<body>
-    <div class="navbar navbar-dark bg-dark navbar-expand-sm fixed-top">
+<body class="@(ViewBag?.Title?.Equals("Search") == true ? "jumbo_image" : "max_width")">
+    <div class="navbar navbar-dark navbar-expand-sm fixed-top" style="background-color:indianred;">
         <div class="container">
             <div class="navbar-brand">
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,12 +30,8 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Lauren Fay Rosenberg</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

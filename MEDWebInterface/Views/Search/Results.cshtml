@@ -1,15 +1,13 @@
 ﻿@model MEDWebInterface.Models.Result
 @using MEDWebInterface.Services
-@using MEDWebInterface.Models
+@using System.Globalization
 <div id="outsidescreen">
     <span class="outsidescreen_elem hi">&#57344;</span>
     <span class="outsidescreen_elem hiaux">&#35;</span>
     <span class="outsidescreen_elem hinotes">&#35;</span>
 </div>
-<div>
-    <h4>Result</h4>
-    <hr />
-    <dl class="dl-horizontal"></dl>
+<div class="page-header">
+    <h3 class="top_margin display-4">Result</h3>
 </div>
 <table class="table table-hover">
     <thead>
@@ -26,46 +24,46 @@
             {
                 foreach (var result in Model.Results)
                 {
-                    <tr>
-                        <td>
-                            @if (Model.DisplayFormatted)
-                            {
-                                <canvas class="res">
-                                    @if (result.Res is null)
-                                    {
-                                        @result.ManuelDeCodage
-                                    }
-                                    else
-                                    {
-                                        @result.Res
-                                    }
-                                </canvas>
-                            }
-                            else
-                            {
-                                <span class="large_text large-text">
-                                    @GardinerConverter.ConvertGardiner(result.GardinerSigns)
-                                </span>
-                            }
-                        </td>
-                        <td>
-                            @GardinerConverter.PrettifyTransliteration(result.Transliteration)
-                        </td>
-                        <td>
-                            @result.GardinerSigns
-                        </td>
-                        @if (result.Translations != null && result.Translations.Count > 0)
+        <tr>
+            <td>
+                @if (Model.DisplayFormatted)
+                {
+                    <canvas class="res">
+                        @((result.Res ?? result.ManuelDeCodage).Replace("AA", "Aa"))
+                    </canvas>
+                }
+                else
+                {
+                    <span class="large_text large-text">
+                        @GardinerConverter.ConvertGardiner(result.GardinerSigns)
+                    </span>
+                }
+            </td>
+            <td>
+                @GardinerConverter.PrettifyTransliteration(result.Transliteration)
+            </td>
+            <td>
+                @result.GardinerSigns
+            </td>
+           @if (result.Translations != null && result.Translations.Count > 0)
+            {
+                <td>
+                    <ul>
+                        @foreach (var translation in result.Translations)
                         {
-                            <td>
-                                <ul>
-                                    @foreach (var translation in result.Translations)
-                                    {
-                                        <li>@translation.translation - @translation.TranslationMetadata.DictionaryName.ToString()</li>
-                                    }
-                                </ul>
-                            </td>
+                        <li>
+                            @if (!(@translation.TranslationMetadata.PartOfSpeech is null))
+                            {
+                                @:(@translation.TranslationMetadata.PartOfSpeech): 
+                            }
+                            @translation.translation -
+                            <i>@(new CultureInfo("en-US", false).TextInfo.ToTitleCase(translation.TranslationMetadata.DictionaryName.ToString()))</i>
+                        </li>
                         }
-                    </tr>
+                    </ul>
+                </td>
+            }
+        </tr>
                 }
             }
         }

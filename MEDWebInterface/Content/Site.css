@@ -1,12 +1,27 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    position:absolute;
+    height:100%;
+    display:table;
+    top: 0px;
+    left: 0px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    height: 100%;
+    display:table;
+    width: 100%;
+}
+
+form {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -40,4 +55,20 @@ textarea {
 
 .large_text {
     font-size: 3em;
+}
+
+.jumbo_image {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/94/Hatshetsup-temple-1by7.jpg");
+    background-repeat:no-repeat;
+    background-size:cover;
+    width:100%;
+}
+
+.img_overlay {
+    background-color: rgba(255, 255, 255, 0.65);
+    border-radius: 5px;
+}
+
+.max_width {
+    width: 100%;
 }

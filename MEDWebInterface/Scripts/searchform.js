@@ -27,11 +27,14 @@ function SignTypeClick() {
 };
 
 function MyToggle() {
-    if ($(".my-toggle").hasClass("active")) {
-        $(".my-toggle").removeClass("active");
-        $(".toggle-check").prop('checked', false);
-    } else {
-        $(".my-toggle").addClass("active");
-        $(".toggle-check").prop('checked', true);
-    }
+    $(".my-toggle").click(function () {
+        if ($(this).hasClass("active")) {
+            $(this).removeClass("active");
+            $(this).find(".toggle-check").prop('checked', false);
+        }
+        else {
+            $(this).addClass("active");
+            $(this).find(".toggle-check").prop('checked', true);
+        }
+    });
 }
