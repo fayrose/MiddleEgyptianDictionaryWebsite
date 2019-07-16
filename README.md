@@ -3,7 +3,7 @@ A dictionary database for Middle Egyptian hieroglyphics, this combines the Paul 
 
 This is primarily achieved using C#, ASP.NET and MongoDb.
 
-I am currently in the process of extending this project as a result of the recent Unicode 12.0 updates allowing for the formatting of Ancient Egyptian Hieroglyphics. (See https://www.unicode.org/versions/Unicode12.0.0/ch11.pdf, pages 9 - 14). However due to the lack of a dictionary mapping gardiner codes to Manuel de Codage (http://www.catchpenny.org/codage/), this requires a trigram analysis of existing texts (sourced from jseshdoc.qenherkhopeshef.org/) in order to determine the layout of common words. After this I will map these formatted trigrams to words, and then convert the Manuel de Codage to the new Unicode 12.0 standard. An example of these formats is provided below: 
+I extended this project to allow for Unicode 12.0 updates allowing for the formatting of Ancient Egyptian Hieroglyphics. (See https://www.unicode.org/versions/Unicode12.0.0/ch11.pdf, pages 9 - 14). However due to the lack of a dictionary mapping gardiner codes to Manuel de Codage (http://www.catchpenny.org/codage/), this requires a trigram analysis of existing texts (sourced from jseshdoc.qenherkhopeshef.org/) in order to determine the layout of common words. After this I will map these formatted trigrams to words, and then convert the Manuel de Codage to the new Unicode 12.0 standard. An example of these formats is provided below: 
 
 English: Sky, heaven
 
@@ -15,7 +15,9 @@ Manuel de Codage: Q3\*X1:N1 , alternatively p\*t:pt
 
 New Unicode: Q3 (\U13431) X1 (\U13430) N1
 
-I plan to add the dictionary parser project to this solution as well.
+--UPDATE-- 
+
+After implementing the Trigram model, I discovered nearly no fonts actually encode Unicode 12.0. As a result, I have moved to an RES model that can be described here: https://mjn.host.cs.st-andrews.ac.uk/egyptian/res/js/. This takes slightly longer to render due to the Javascript formatting library. I have maintained both the ManuelDeCodage and RES fields on the DictionaryEntry model in order to work while allowing me to move back to Unicode 12.0 once the spec has been implemented.
 
 ## My experience with Middle Egyptian
 I am a student at the University of Toronto studying computer science. After two years of taking Middle Egyptian as an elective, I thought I should try to expand accessibility to the language by providing an easy way to view a dictionary database online. I had been quite frustrated as the only online resources were searchable pdfs. Often when searching for transliterations, I would wind up with 200 results, many of which were translation matches. In parsing and combining three dictionaries, I aimed to allow more specific searches while remove redundancy between dictionaries. 
