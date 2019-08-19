@@ -10,9 +10,9 @@
         This database specifically focuses on Ancient Egyptian hieroglyphics from the Middle Kingdom, although some hieratic signs may be found.
     </p>
     <p>
-        This project is currently ongoing, and I plan to extend it in accordance with the Unicode 12.0 additions for formatting hieroglyphics. This will allow glyphs to be viewed in their original block forms, as opposed to in sequential letters.
-        As I have not been able to find a dictionary that provides Manuel de Codage formatting, I am taking trigrams over the texts from JSesh to establish the formatting of common words. After this, I will map the trigrams to dictionary entries, and then
-        convert the Manuel de Codage to Unicode 12.0.
+        I have extended the project beyond its initial scope in that I added both sequential Unicode glyphs, as well as rendered glyphs in their original block forms.
+        As I have not been able to find a dictionary that provides Manuel de Codage formatting (only the letter IDs), I took trigrams over the formatted texts from JSesh to establish the formatting of common words. 
+        After this, I mapped the trigrams to dictionary entries, and then converted the Manuel de Codage to the formatted RES. 
     </p>
 </div>
 <div>
@@ -23,7 +23,14 @@
     </p>
     <p>
         If given the time, I would love to expand the project in order to encompass larger natural language processing problems, as it is an area of great interest. The main barriers to entry as of now are
-        word and sentence resolution, as Middle Egyptian has neither spaces nor punctuation. Once the tri-glyph analysis is complete and I am more comfortable with the language, I will begin working on a transliteration to English translator based upon IBM Model 1.
+        word and sentence resolution, as Middle Egyptian has neither spaces nor punctuation. I plan to begin working on a transliteration to English translator based upon IBM Model 1.
         This may be limited by the small amounts of data for which I have aligned translations. 
+    </p>
+    <p>
+        I would also like to spend some time improving the user experience and search on this website itself.
+        One of these features is intended to help unfamiliar users perform queries of the Gardiner identified letters by listing out each family and implementing an autocomplete feature while searching.
+        A stretch goal here would to implement a grammatical conjugator for verbs.
+        Next, I want to improve the speed of search by adding keyword-based search for non-exact queries.
+        Lastly, I want to create an administrator portion of the site to allow select users to correct formatting, add or modify entries.
     </p>
 </div>
