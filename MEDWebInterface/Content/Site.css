@@ -59,9 +59,13 @@ textarea {
 
 .jumbo_image {
     background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/94/Hatshetsup-temple-1by7.jpg");
-    background-repeat:no-repeat;
-    background-size:cover;
-    width:100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .img_overlay {

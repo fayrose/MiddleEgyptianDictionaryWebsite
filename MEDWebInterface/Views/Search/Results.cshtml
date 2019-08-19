@@ -29,7 +29,7 @@
                 @if (Model.DisplayFormatted)
                 {
                     <canvas class="res">
-                        @((result.Res ?? result.ManuelDeCodage))
+                        @(result.Res ?? result.ManuelDeCodage.Replace("AA", "Aa"))
                     </canvas>
                 }
                 else
