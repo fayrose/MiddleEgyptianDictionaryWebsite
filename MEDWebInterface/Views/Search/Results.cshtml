@@ -1,5 +1,7 @@
 ﻿@model MEDWebInterface.Models.Result
 @using MEDWebInterface.Services
+@using MiddleEgyptianDictionary.Models
+@using MiddleEgyptianDictionary
 @using System.Globalization
 <div id="outsidescreen">
     <span class="outsidescreen_elem hi">&#57344;</span>
@@ -24,46 +26,46 @@
             {
                 foreach (var result in Model.Results)
                 {
-        <tr>
-            <td>
-                @if (Model.DisplayFormatted)
-                {
-                    <canvas class="res">
-                        @(result.Res ?? result.ManuelDeCodage.Replace("AA", "Aa"))
-                    </canvas>
-                }
-                else
-                {
-                    <span class="large_text large-text">
-                        @GardinerConverter.ConvertGardiner(result.GardinerSigns)
-                    </span>
-                }
-            </td>
-            <td>
-                @GardinerConverter.PrettifyTransliteration(result.Transliteration)
-            </td>
-            <td>
-                @result.GardinerSigns
-            </td>
-           @if (result.Translations != null && result.Translations.Count > 0)
-            {
-                <td>
-                    <ul>
-                        @foreach (var translation in result.Translations)
-                        {
-                        <li>
-                            @if (!(@translation.TranslationMetadata.PartOfSpeech is null))
+                    <tr>
+                        <td>
+                            @if (Model.DisplayFormatted)
                             {
-                                @:(@translation.TranslationMetadata.PartOfSpeech): 
+                                <canvas class="res">
+                                    @(result.Res ?? result.ManuelDeCodage.Replace("AA", "Aa"))
+                                </canvas>
                             }
-                            @translation.translation -
-                            <i>@(new CultureInfo("en-US", false).TextInfo.ToTitleCase(translation.TranslationMetadata.DictionaryName.ToString()))</i>
-                        </li>
+                            else
+                            {
+                                <span class="large_text large-text">
+                                    @GardinerConverter.ConvertGardiner(result.GardinerSigns)
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            @GardinerConverter.PrettifyTransliteration(result.Transliteration)
+                        </td>
+                        <td>
+                            @result.GardinerSigns
+                        </td>
+                        @if (result.Translations != null && result.Translations.Count > 0)
+                        {
+                            <td>
+                                <ul>
+                                    @foreach (var translation in result.Translations)
+                                    {
+                                        <li>
+                                            @if (!(@translation.TranslationMetadata.PartOfSpeech is null))
+                                            {
+                                                @:(@translation.TranslationMetadata.PartOfSpeech):
+                                            }
+                                            @translation.translation -
+                                            <i>@(new CultureInfo("en-US", false).TextInfo.ToTitleCase(translation.TranslationMetadata.DictionaryName.ToString()))</i>
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
                         }
-                    </ul>
-                </td>
-            }
-        </tr>
+                    </tr>
                 }
             }
         }

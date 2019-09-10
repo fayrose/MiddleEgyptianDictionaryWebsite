@@ -1,8 +1,8 @@
 ﻿using MEDWebInterface.Models;
+using MiddleEgyptianDictionary;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using MiddleEgyptianDictionary;
 
 namespace MEDWebInterface.Controllers
 {
@@ -27,7 +27,7 @@ namespace MEDWebInterface.Controllers
         {
             try
             {
-                List<DictionaryEntry> results = SearchDatabase(userInput);
+                IEnumerable<DictionaryEntry> results = SearchDatabase(userInput);
                 // Redirect to proper route that displays
                 Result packaged = new Result()
                 { 
@@ -58,7 +58,7 @@ namespace MEDWebInterface.Controllers
             }
         }
 
-        private List<DictionaryEntry> SearchDatabase(SearchQuery query)
+        private IEnumerable<DictionaryEntry> SearchDatabase(SearchQuery query)
         {
             DefineVariables();
             return wf.ConductSearch(query);
