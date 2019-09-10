@@ -4,8 +4,8 @@
     position:absolute;
     height:100%;
     display:table;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -64,9 +64,8 @@ textarea {
     width: 100%;
     height: 100%;
     max-width: 100%;
-    background-size: cover;
     background-attachment: fixed;
-    box-shadow: inset 0px 0px 0px 2000px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.3);
 }
 
 .img_overlay {
