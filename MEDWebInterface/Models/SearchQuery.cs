@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Web;
-
-namespace MEDWebInterface.Models
+﻿namespace MEDWebInterface.Models
 {
     public enum SearchType { all, translation, transliteration, gardiner }
     public class SearchQuery
