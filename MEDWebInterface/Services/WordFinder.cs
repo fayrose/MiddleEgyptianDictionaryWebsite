@@ -1,27 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Security.Authentication;
 using MEDWebInterface.Models;
-using MongoDB.Driver;
+using MEDWebInterface.Services;
 using MiddleEgyptianDictionary;
+using MiddleEgyptianDictionary.Models;
+using MiddleEgyptianDictionary.Services;
+using MongoDB.Driver;
 
 namespace MEDWebInterface
 {
     public class WordFinder
     {
-        IMongoCollection<DictionaryEntry> collection;
+        DbManager Manager;
         public WordFinder(string connectionString)
         {
-            MongoClientSettings settings = MongoClientSettings.FromUrl(
-              new MongoUrl(Constants.ConnectionString)
-            );
-            settings.SslSettings =
-              new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
-            var mongoDb = new MongoClient(settings).GetDatabase("MiddleEgyptianDictionary");
-            collection = mongoDb.GetCollection<DictionaryEntry>("Entries");
+            Manager = new DbManager();
         }
 
-        public List<DictionaryEntry> ConductSearch(SearchQuery query)
+        public IEnumerable<DictionaryEntry> ConductSearch(SearchQuery query)
         {
             switch (query.Type)
             {
@@ -39,33 +36,50 @@ namespace MEDWebInterface
 
         private List<DictionaryEntry> SearchByTransliteration(string transliteration, bool exactMatch)
         {
-            return exactMatch ? collection.Find(x => x.Transliteration == transliteration).ToList() :
-                   collection.Find(x => x.Transliteration.Contains(transliteration)).ToList();
+            return exactMatch ? Manager.GetExistingDbEntries().Find(x => x.Transliteration == transliteration).ToList() :
+                   Manager.GetExistingDbEntries().Find(x => x.Transliteration.Contains(transliteration)).ToList();
         }
 
         private List<DictionaryEntry> SearchByGardinerSigns(string gardinerSigns, bool exactMatch)
         {
-            return exactMatch ? collection.Find(x => x.GardinerSigns == gardinerSigns).ToList() :
-                   collection.Find(x => x.GardinerSigns.Contains(gardinerSigns)).ToList();
+            return exactMatch ? Manager.GetExistingDbEntries().Find(x => x.GardinerSigns == gardinerSigns).ToList() :
+                   Manager.GetExistingDbEntries().Find(x => x.GardinerSigns.Contains(gardinerSigns)).ToList();
             
         }
 
-        private List<DictionaryEntry> SearchByTranslation(string translation, bool exactMatch)
-        { 
-            if (exactMatch)
-            {
-                var filter = Builders<DictionaryEntry>.Filter.Eq("Translations.translation", translation);
-                return collection.Find(filter).ToList();
-            }
-            return collection.Find(x => x.Translations.Any( y => y.translation.Contains(translation))).ToList();
+        private IEnumerable<DictionaryEntry> SearchByTranslation(string searchQuery, bool exactMatch)
+        {
+            var keygen = new KeywordGenerator(Constants.StopWordsLocation);
+            var sanitizedKeywords = keygen.SanitizeSearchInput(searchQuery, null);
+            int numKeywords = sanitizedKeywords.Length;
+            var keywordTable = Manager.GetExistingKeywordsFromDb();
+
+            var aggregationPipeline = keywordTable.Aggregate()
+                .Match(new FilterDefinitionBuilder<KeywordSearch>().In(x => x.Keyword, sanitizedKeywords))
+                .Unwind<KeywordSearch, UnwoundKeywordSearch>(x => x.EntryIds)
+                .Group(x => x.EntryIds, y => new TemporaryEntrySet { Id = y.Key, Count = y.Count() });
+
+            aggregationPipeline = exactMatch ?
+                                  aggregationPipeline.Match(x => x.Count == numKeywords) :
+                                  aggregationPipeline.SortByDescending(x => x.Count);
+
+            var something = aggregationPipeline
+                .Lookup(
+                    foreignCollection: Manager.GetExistingDbEntries(),
+                    localField: x => x.Id,
+                    foreignField: y => y.Id,
+                    @as: (KeywordResult result) => result.DictionaryEntry)
+                .Unwind<KeywordResult, UnwoundKeywordResult>(x => x.DictionaryEntry)
+                .ToList();
+            return something.Select(x => x.DictionaryEntry);
         }
 
         private List<DictionaryEntry> SearchAll(string input, bool exactMatch)
         {
-            var signsTranslit = exactMatch ? 
-                collection.Find(x => x.Transliteration == input || 
-                                x.GardinerSigns == input).ToList() : 
-                collection.Find(x => x.Transliteration.Contains(input) || 
+            var signsTranslit = exactMatch ?
+                Manager.GetExistingDbEntries().Find(x => x.Transliteration == input || 
+                                x.GardinerSigns == input).ToList() :
+                Manager.GetExistingDbEntries().Find(x => x.Transliteration.Contains(input) || 
                                 x.GardinerSigns.Contains(input)).ToList();
             return signsTranslit.Concat(SearchByTranslation(input, exactMatch)).ToList();
 
