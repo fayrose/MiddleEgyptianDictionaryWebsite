@@ -390,7 +390,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\GardinerConverter.cs" />
-    <Compile Include="Services\KeywordGenerator.cs" />
     <Compile Include="Services\KeywordSearchSerializer.cs" />
     <Compile Include="Services\WordFinder.cs" />
   </ItemGroup>
