@@ -1,101 +1,903 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="StopWords" xml:space="preserve">
+    <value>a
+about
+above
+ac
+according
+accordingly
+across
+actually
+ad
+adj
+af
+after
+afterwards
+again
+against
+al
+albeit
+all
+almost
+alone
+along
+already
+als
+also
+although
+always
+am
+among
+amongst
+an
+and
+another
+any
+anybody
+anyhow
+anyone
+anything
+anyway
+anywhere
+ap
+apart
+apparently
+are
+aren
+arise
+around
+as
+aside
+at
+au
+auf
+aus
+aux
+av
+avec
+away
+b
+be
+became
+because
+become
+becomes
+becoming
+been
+before
+beforehand
+began
+begin
+beginning
+begins
+behind
+bei
+being
+below
+beside
+besides
+best
+better
+between
+beyond
+billion
+both
+briefly
+but
+by
+c
+came
+can
+cannot
+canst
+caption
+captions
+certain
+certainly
+cf
+choose
+chooses
+choosing
+chose
+chosen
+clear
+clearly
+co
+come
+comes
+con
+contrariwise
+cos
+could
+couldn
+cu
+d
+da
+dans
+das
+day
+de
+degli
+dei
+del
+della
+delle
+dem
+den
+der
+deren
+des
+di
+did
+didn
+die
+different
+din
+do
+does
+doesn
+doing
+don
+done
+dos
+dost
+double
+down
+du
+dual
+due
+durch
+during
+e
+each
+ed
+eg
+eight
+eighty
+either
+el
+else
+elsewhere
+em
+en
+end
+ended
+ending
+ends
+enough
+es
+especially
+et
+etc
+even
+ever
+every
+everybody
+everyone
+everything
+everywhere
+except
+excepts
+excepted
+excepting
+exception
+exclude
+excluded
+excludes
+excluding
+exclusive
+f
+fact
+facts
+far
+farther
+farthest
+few
+ff
+fifty
+finally
+first
+five
+foer
+follow
+followed
+follows
+following
+for
+former
+formerly
+forth
+forty
+forward
+found
+four
+fra
+frequently
+from
+front
+fuer
+further
+furthermore
+furthest
+g
+gave
+general
+generally
+get
+gets
+getting
+give
+given
+gives
+giving
+go
+going
+gone
+good
+got
+great
+greater
+h
+had
+haedly
+half
+halves
+hardly
+has
+hasn
+hast
+hath
+have
+haven
+having
+he
+hence
+henceforth
+her
+here
+hereabouts
+hereafter
+hereby
+herein
+hereto
+hereupon
+hers
+herself
+het
+high
+higher
+highest
+him
+himself
+hindmost
+his
+hither
+how
+however
+howsoever
+hundred
+hundreds
+i
+ie
+if
+ihre
+ii
+im
+immediately
+important
+in
+inasmuch
+inc
+include
+included
+includes
+including
+indeed
+indoors
+inside
+insomuch
+instead
+into
+inward
+is
+isn
+it
+its
+itself
+j
+ja
+journal
+journals
+just
+k
+kai
+keep
+keeping
+kept
+kg
+kind
+kinds
+km
+l
+la
+large
+largely
+larger
+largest
+las
+last
+later
+latter
+latterly
+le
+least
+les
+less
+lest
+let
+like
+likely
+little
+ll
+long
+longer
+los
+low
+lower
+lowest
+ltd
+m
+made
+mainly
+make
+makes
+making
+many
+may
+maybe
+me
+meantime
+meanwhile
+med
+might
+million
+mine
+miss
+mit
+more
+moreover
+most
+mostly
+mr
+mrs
+ms
+much
+mug
+must
+my
+myself
+n
+na
+nach
+namely
+nas
+near
+nearly
+necessarily
+necessary
+need
+needs
+needed
+needing
+neither
+nel
+nella
+never
+nevertheless
+new
+next
+nine
+ninety
+no
+nobody
+none
+nonetheless
+noone
+nope
+nor
+nos
+not
+note
+noted
+notes
+noting
+nothing
+notwithstanding
+now
+nowadays
+nowhere
+o
+obtain
+obtained
+obtaining
+obtains
+och
+of
+off
+often
+og
+ohne
+ok
+old
+om
+on
+once
+onceone
+one
+only
+onto
+or
+ot
+other
+others
+otherwise
+ou
+ought
+our
+ours
+ourselves
+out
+outside
+over
+overall
+owing
+own
+p
+par
+para
+particular
+particularly
+past
+per
+perhaps
+please
+plenty
+plus
+por
+possible
+possibly
+pour
+poured
+pouring
+pours
+predominantly
+previously
+pro
+probably
+prompt
+promptly
+provide
+provides
+provided
+providing
+q
+quite
+r
+rather
+re
+ready
+really
+recent
+recently
+regardless
+relatively
+respectively
+reuters
+round
+s
+said
+same
+sang
+save
+saw
+say
+second
+see
+seeing
+seem
+seemed
+seeming
+seems
+seen
+sees
+seldom
+self
+selves
+send
+sending
+sends
+sent
+ses
+seven
+seventy
+several
+shall
+shalt
+she
+short
+should
+shouldn
+show
+showed
+showing
+shown
+shows
+si
+sideways
+significant
+similar
+similarly
+simple
+simply
+since
+sing
+single
+six
+sixty
+sleep
+sleeping
+sleeps
+slept
+slew
+slightly
+small
+smote
+so
+sobre
+some
+somebody
+somehow
+someone
+something
+sometime
+sometimes
+somewhat
+somewhere
+soon
+spake
+spat
+speek
+speeks
+spit
+spits
+spitting
+spoke
+spoken
+sprang
+sprung
+staves
+still
+stop
+strongly
+substantially
+successfully
+such
+sui
+sulla
+sung
+supposing
+sur
+t
+take
+taken
+takes
+taking
+te
+ten
+tes
+than
+that
+the
+thee
+their
+theirs
+them
+themselves
+then
+thence
+thenceforth
+there
+thereabout
+thereabouts
+thereafter
+thereby
+therefor
+therefore
+therein
+thereof
+thereon
+thereto
+thereupon
+these
+they
+thing
+things
+third
+thirty
+this
+those
+thou
+though
+thousand
+thousands
+three
+thrice
+through
+throughout
+thru
+thus
+thy
+thyself
+til
+till
+time
+times
+tis
+to
+together
+too
+tot
+tou
+toward
+towards
+trillion
+trillions
+twenty
+two
+u
+ueber
+ugh
+uit
+un
+unable
+und
+under
+underneath
+unless
+unlike
+unlikely
+until
+up
+upon
+upward
+us
+use
+used
+useful
+usefully
+user
+users
+uses
+using
+usually
+v
+van
+various
+ve
+very
+via
+vom
+von
+voor
+vs
+w
+want
+was
+wasn
+way
+ways
+we
+week
+weeks
+well
+went
+were
+weren
+what
+whatever
+whatsoever
+when
+whence
+whenever
+whensoever
+where
+whereabouts
+whereafter
+whereas
+whereat
+whereby
+wherefore
+wherefrom
+wherein
+whereinto
+whereof
+whereon
+wheresoever
+whereto
+whereunto
+whereupon
+wherever
+wherewith
+whether
+whew
+which
+whichever
+whichsoever
+while
+whilst
+whither
+who
+whoever
+whole
+whom
+whomever
+whomsoever
+whose
+whosoever
+why
+wide
+widely
+will
+wilt
+with
+within
+without
+won
+worse
+worst
+would
+wouldn
+wow
+x
+xauthor
+xcal
+xnote
+xother
+xsubj
+y
+ye
+year
+yes
+yet
+yipee
+you
+your
+yours
+yourself
+yourselves
+yu
+z
+za
+ze
+zu
+zum</value>
+  </data>
 </root>

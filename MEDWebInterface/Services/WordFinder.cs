@@ -49,7 +49,7 @@ namespace MEDWebInterface
 
         private IEnumerable<DictionaryEntry> SearchByTranslation(string searchQuery, bool exactMatch)
         {
-            var keygen = new KeywordGenerator(Constants.StopWordsLocation);
+            var keygen = new KeywordGenerator();
             var sanitizedKeywords = keygen.SanitizeSearchInput(searchQuery, null);
             int numKeywords = sanitizedKeywords.Length;
             var keywordTable = Manager.GetExistingKeywordsFromDb();

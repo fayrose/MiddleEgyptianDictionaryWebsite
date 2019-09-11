@@ -22,7 +22,7 @@ namespace MEDWebInterface.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MEDWebInterface.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MEDWebInterface.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,104 @@ namespace MEDWebInterface.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a
+        ///about
+        ///above
+        ///ac
+        ///according
+        ///accordingly
+        ///across
+        ///actually
+        ///ad
+        ///adj
+        ///af
+        ///after
+        ///afterwards
+        ///again
+        ///against
+        ///al
+        ///albeit
+        ///all
+        ///almost
+        ///alone
+        ///along
+        ///already
+        ///als
+        ///also
+        ///although
+        ///always
+        ///am
+        ///among
+        ///amongst
+        ///an
+        ///and
+        ///another
+        ///any
+        ///anybody
+        ///anyhow
+        ///anyone
+        ///anything
+        ///anyway
+        ///anywhere
+        ///ap
+        ///apart
+        ///apparently
+        ///are
+        ///aren
+        ///arise
+        ///around
+        ///as
+        ///aside
+        ///at
+        ///au
+        ///auf
+        ///aus
+        ///aux
+        ///av
+        ///avec
+        ///away
+        ///b
+        ///be
+        ///became
+        ///because
+        ///become
+        ///becomes
+        ///becoming
+        ///been
+        ///before
+        ///beforehand
+        ///began
+        ///begin
+        ///beginning
+        ///begins
+        ///behind
+        ///bei
+        ///being
+        ///below
+        ///beside
+        ///besides
+        ///best
+        ///better
+        ///between
+        ///beyond
+        ///billion
+        ///both
+        ///briefly
+        ///but [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string StopWords {
+            get {
+                return ResourceManager.GetString("StopWords", resourceCulture);
             }
         }
     }
