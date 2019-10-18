@@ -9,8 +9,6 @@
     <!--Show error feedback contained in TempData-->
     <label class="alert-danger" style="padding: 15px; border-radius: 5%; margin-top: 50px;">@TempData["ex"]</label>
 }
-    <label style="font-size: 50px;">
-    </label>
 @using (Html.BeginForm("Submit", "Search", FormMethod.Post))
 {
     <div style="align-items:center; justify-content:center; display:flex;">
@@ -18,27 +16,27 @@
             <h3 class="display-4">@ViewBag.Title.</h3>
             <div class="search_div">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-outline-danger search_config">
+                    <label class="btn btn-outline-danger search_config" onchange="ChangeText(0); ChangeTextbox(0);">
                         @Html.RadioButtonFor(x => x.Type, SearchType.all, new { @style = "display:none;" }) All
                     </label>
-                    <label class="btn btn-outline-danger search_config active">
+                    <label class="btn btn-outline-danger search_config active" onchange="ChangeText(0); ChangeTextbox(0);">
                         @Html.RadioButtonFor(x => x.Type, SearchType.transliteration, new { @style = "display:none;", @checked = "checked" }) Transliteration
                     </label>
-                    <label class="btn btn-outline-danger search_config">
+                    <label class="btn btn-outline-danger search_config" id="translationradio" onchange="ChangeText(1); ChangeTextbox(0);">
                         @Html.RadioButtonFor(x => x.Type, SearchType.translation, new { @style = "display:none;" }) Translation
                     </label>
-                    <label class="btn btn-outline-danger search_config">
+                    <label class="btn btn-outline-danger search_config" onchange="ChangeText(0); ChangeTextbox(1); ">
                         @Html.RadioButtonFor(x => x.Type, SearchType.gardiner, new { @style = "display:none;" }) Gardiner Sign
                     </label>
                 </div>
-
             </div>
 
             <div class="search_div">
                 <div class="input-group">
-                    @Html.TextBoxFor(x => x.Query, htmlAttributes: new { @class = "form-control", @placeholder = "Search..." })
+                    @Html.TextBoxFor(x => x.Query, htmlAttributes: new { @class = "form-control", @placeholder = "Search...", @id = "regular-input" })
+                    <select class="js-example-basic-multiple" multiple="multiple"></select>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit" value="Submit">
+                        <button class="btn btn-outline-dark" type="submit" value="Submit">
                             <i class="fas fa-search"></i>
                             Search
                         </button>
@@ -47,15 +45,15 @@
             </div>
             <div style="display:flex;">
                 <div class="search_div">
-                    <label id="exact-match" class="my-toggle btn btn-outline-danger search_config active" onchange="MyToggle()">
-                        @Html.CheckBoxFor(x => x.ExactMatch, htmlAttributes: new { @autocomplete = "off", @style = "display:none;", @class = "toggle-check", @checked = "checked" })
+                    <label id="exact-match" class="my-toggle btn btn-outline-danger search_config active" for="exactmatchcheck">
+                        @Html.CheckBoxFor(x => x.ExactMatch, htmlAttributes: new { @autocomplete = "off", @style = "display:none;", @class = "toggle-check", @checked = "checked", @id = "exactmatchcheck", @onclick = "MyToggle(0)" })
                         Exact Match
                     </label>
                 </div>
 
                 <div class="search_div">
-                    <label id="formatted-toggle" class="my-toggle btn btn-outline-danger search_config active" onchange="MyToggle()">
-                        @Html.CheckBoxFor(x => x.DisplayFormatted, htmlAttributes: new { @autocomplete = "off", @style = "display:none;", @class = "toggle-check", @checked = "checked" })
+                    <label id="formatted-toggle" class="my-toggle btn btn-outline-danger search_config active">
+                        @Html.CheckBoxFor(x => x.DisplayFormatted, htmlAttributes: new { @autocomplete = "off", @style = "display:none;", @class = "toggle-check", @checked = "checked", @onclick = "MyToggle(1)" })
                         Display Formatted
                     </label>
                 </div>
