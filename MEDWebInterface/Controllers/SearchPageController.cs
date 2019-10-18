@@ -45,7 +45,7 @@ namespace MEDWebInterface.Controllers
             catch (Exception ex)
             {
                 TempData["ex"] = ex.StackTrace;
-                return RedirectToAction("Error");
+                return RedirectToAction("Results");
             }
         }
 
