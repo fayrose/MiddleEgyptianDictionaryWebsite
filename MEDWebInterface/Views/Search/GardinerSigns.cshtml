@@ -1,0 +1,19 @@
+﻿<script type="text/javascript" language="javascript" src="~/Scripts/renderGardinerDesc.js"></script>
+<div class="page-header">
+    <h3 class="top_margin display-4">Gardiner Sign List</h3>
+</div>
+
+<select class="js-example-basic-single" onchange="displayEntries()"></select>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Gardiner Sign</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

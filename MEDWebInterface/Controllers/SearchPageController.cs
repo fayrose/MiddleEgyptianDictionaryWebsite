@@ -22,6 +22,11 @@ namespace MEDWebInterface.Controllers
             return View();
         }
 
+        public ActionResult GardinerSigns()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Submit(SearchQuery userInput)
         {
@@ -40,7 +45,7 @@ namespace MEDWebInterface.Controllers
             catch (Exception ex)
             {
                 TempData["ex"] = ex.StackTrace;
-                return RedirectToAction("Results");
+                return RedirectToAction("Error");
             }
         }
 
