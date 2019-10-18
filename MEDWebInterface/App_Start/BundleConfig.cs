@@ -22,6 +22,15 @@ namespace MEDWebInterface
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/popper").Include(
+                "~/Scripts/popper*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                "~/Scripts/select2.js"));
+
+            bundles.Add(new StyleBundle("~/Content/select2").Include(
+                "~/Content/css/select2.css"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
@@ -34,6 +43,7 @@ namespace MEDWebInterface
                 "~/Scripts/res/res_aux.js",
                 "~/Scripts/res/res_points.js",
                 "~/Scripts/res/res_lite.js",
+                "~/Scripts/res/res_signinfo.js",
                 "~/Scripts/res/res_struct.js",
                 "~/Scripts/res/res_syntax.js",
                 "~/Scripts/res/res_format.js",

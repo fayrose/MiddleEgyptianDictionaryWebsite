@@ -8,9 +8,20 @@
     @Styles.Render("~/Content/res")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/res")
+    @Scripts.Render("~/bundles/popper")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/select2")
+    @Scripts.Render("~/bundles/select2")
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 </head>
 <body class="@(ViewBag?.Title?.Equals("Search") == true ? "jumbo_image img-fluid" : "max_width")">
+    <div id="outsidescreen">
+        <span class="outsidescreen_elem hi">&#57344;</span>
+        <span class="outsidescreen_elem hiaux">&#35;</span>
+        <span class="outsidescreen_elem hinotes">&#35;</span>
+    </div>
     <div class="navbar navbar-dark navbar-expand-sm fixed-top" style="background-color:indianred;">
         <div class="container">
             <div class="navbar-brand">
@@ -26,6 +37,7 @@
                 <ul class="nav navbar-nav">
                     <li class="nav-item">@Html.ActionLink("Home", "Index", "Search", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("About", "About", "Search", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Gardiner Sign List", "GardinerSigns", "Search", null, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>
@@ -34,8 +46,6 @@
         @RenderBody()
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
