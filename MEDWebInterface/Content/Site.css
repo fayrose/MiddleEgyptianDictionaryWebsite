@@ -58,14 +58,14 @@ textarea {
 }
 
 .jumbo_image {
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/94/Hatshetsup-temple-1by7.jpg");
+    background-color: black;
+    background-image: url("egypt.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
     width: 100%;
     height: 100%;
     max-width: 100%;
-    background-attachment: fixed;
-    box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.3);
+    background-position-x: 65%;
+    background-position-y: 20%;
 }
 
 .img_overlay {
@@ -75,4 +75,13 @@ textarea {
 
 .max_width {
     width: 100%;
+}
+
+.dropdown {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.select2 {
+    flex: 1 1 auto;
 }
