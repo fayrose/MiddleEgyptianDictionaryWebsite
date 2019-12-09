@@ -30,7 +30,7 @@ namespace MEDWebInterface
                 case (SearchType.translation):
                     return SearchByTranslation(query.Query, query.ExactMatch);
                 case (SearchType.gardiner):
-                    return SearchByGardinerSigns(query.Query, query.ExactMatch);
+                    return SearchByGardinerSigns(query.SignQuery, query.ExactMatch);
             }
         }
 

@@ -1,8 +1,10 @@
 ﻿$(document).ready(function () {
     var data = getCategories();
     $(".js-example-basic-single").select2({
-        placeholder: 'Choose a category',
         data: data,
+        placeholder: "Choose a category",
+        width: "auto",
+        dropdownPosition: "below",
     });
     $('.select2').css("margin-bottom", "1em");
 });
@@ -138,8 +140,6 @@ function displayEntries() {
             } else {
                 var glyphName = val
             }
-            console.log(glyphName);
-            console.log(glyphDescription);
             $('.table-hover > tbody:last-child').append(
                 '<tr><td>' + glyphName + '</td><td>' + glyphDescription + '</td></tr>');
         }

@@ -4,6 +4,7 @@
     public class SearchQuery
     {
         public string Query { get; set; }
+        public string SignQuery { get; set; }
         public bool ExactMatch { get; set; }
         public SearchType Type { get; set; }
         public bool DisplayFormatted { get; set; }

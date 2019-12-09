@@ -11847,6 +11847,8 @@
 
         data: outData,
         placeholder: "Id, [translit.], [narrow], [broad], [tall]",
+        width: "60%",
+        multiple: true,
         escapeMarkup: function (markup) {
             return markup;
         },
@@ -11860,6 +11862,26 @@
     $('.select2').hide();
     $('.select2').children().hide();
 });
+
+function SelectClick1() {
+    $('.js-example-basic-multiple').on('change', function (e) {
+        var data = e;
+        console.log(e);
+    });
+}
+
+function SelectClick() {
+    console.log('happens');
+    $(".js-example-basic-multiple").on('select2:select', function (e) {
+        var data = $('.js-example-basic-multiple').select2('data');
+        var signQuery = [];
+        data.forEach(function (item) {
+            signQuery.push(item.display);
+        });
+        var text = signQuery.join(' ');
+        $("#SignQuery").val(text);
+    });
+}
 
 function MyToggle(x) {
     $(".my-toggle").click(function (event) {

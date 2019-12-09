@@ -34,13 +34,15 @@
             <div class="search_div">
                 <div class="input-group">
                     @Html.TextBoxFor(x => x.Query, htmlAttributes: new { @class = "form-control", @placeholder = "Search...", @id = "regular-input" })
-                    <select class="js-example-basic-multiple" multiple="multiple"></select>
+                    <select class="js-example-basic-multiple" multiple="multiple" onchange="SelectClick()">
+                    </select>
                     <span class="input-group-btn">
                         <button class="btn btn-outline-dark" type="submit" value="Submit">
                             <i class="fas fa-search"></i>
                             Search
                         </button>
                     </span>
+                    @Html.TextBoxFor(x => x.SignQuery, htmlAttributes: new { @style = "display: none;", @id = "SignQuery"})
                 </div>
             </div>
             <div style="display:flex;">
