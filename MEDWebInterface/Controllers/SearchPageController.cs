@@ -2,6 +2,9 @@
 using MiddleEgyptianDictionary;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Web.Mvc;
 
 namespace MEDWebInterface.Controllers
@@ -68,6 +71,14 @@ namespace MEDWebInterface.Controllers
             DefineVariables();
             return wf.ConductSearch(query);
         }
-
+        public FileStreamResult Image(string key)
+        {
+            string input = key.Replace("AA", "J").Replace("Aa", "J");
+            var bitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject(input);
+            MemoryStream stream = new MemoryStream();
+            bitmap.Save(stream, ImageFormat.Tiff);
+            stream.Seek(0, SeekOrigin.Begin);
+            return new FileStreamResult(stream, "image/tiff");
+        }
     }
 }
