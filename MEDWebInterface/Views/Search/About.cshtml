@@ -1,36 +1,20 @@
-﻿@model MEDWebInterface.Models.SearchQuery
-@{
-    ViewBag.Title = "About";
-}
-<div>
-    <meta name="viewport" content="width=device-width" />
-    <h2 class="top_margin">About Project</h2>
-    <p>
-        This is dictionary database for Middle Egyptian hieroglyphics, combining the Paul Dickson dictionary (2006), the Mark Vygus dictionary (2012) and a third lexicon originally from OpenGlyp (that I found through the Morris Franken dataset for "Automatic Egyptian Hieroglyph Recognition by Retrieving Images as Texts") into a searchable database.
-        This database specifically focuses on Ancient Egyptian hieroglyphics from the Middle Kingdom, although some hieratic signs may be found.
-    </p>
-    <p>
-        I have extended the project beyond its initial scope in that I added both sequential Unicode glyphs, as well as rendered glyphs in their original block forms.
-        As I have not been able to find a dictionary that provides Manuel de Codage formatting (only the letter IDs), I took trigrams over the formatted texts from JSesh to establish the formatting of common words. 
-        After this, I mapped the trigrams to dictionary entries, and then converted the Manuel de Codage to the formatted RES. 
-    </p>
-</div>
-<div>
-    <h2>About Me</h2>
-    <p>
-        I am a student at the University of Toronto studying computer science with emphases in AI/NLP. After two years of taking Middle Egyptian as an elective, I thought I should try to expand accessibility to the language by providing an easy way to view a dictionary database online.
-        I had been quite frustrated as the only online resources were searchable pdfs. Often when searching for transliterations, I would wind up with 200 results, many of which were translation matches. In parsing and combining three dictionaries, I aimed to allow more specific searches while remove redundancy between dictionaries.
-    </p>
-    <p>
-        If given the time, I would love to expand the project in order to encompass larger natural language processing problems, as it is an area of great interest. The main barriers to entry as of now are
-        word and sentence resolution, as Middle Egyptian has neither spaces nor punctuation. I plan to begin working on a transliteration to English translator based upon IBM Model 1.
-        This may be limited by the small amounts of data for which I have aligned translations. 
-    </p>
-    <p>
-        I would also like to spend some time improving the user experience and search on this website itself.
-        One of these features is intended to help unfamiliar users perform queries of the Gardiner identified letters by listing out each family and implementing an autocomplete feature while searching.
-        A stretch goal here would to implement a grammatical conjugator for verbs.
-        Next, I want to improve the speed of search by adding keyword-based search for non-exact queries.
-        Lastly, I want to create an administrator portion of the site to allow select users to correct formatting, add or modify entries.
-    </p>
+﻿<div class="col-md-8 offset-md-2 col-xs-10 offset-xs-1">
+    <div class="justify-content-center">
+        <h3 class="top_margin">Problem Summary</h3>
+        <p>As a student of Middle Egyptian, it is very frequent to require dictionary resources outside of <i>Hoch’s Grammar</i>, especially as translations of sentences turn into translations of stories. The dictionary resources are relatively limited in this area, however. <i>A Concise Dictionary of Middle Egyptian</i> by Raymond Faulkner, published in 1962, is the gold standard, but is relatively difficult to find and purchase, and is not typewritten, requiring the parsing of cursive text and handwritten drawings to seek the entry one requires. Other options include the 2006 Paul Dickson dictionary and the 2012 and 2018 versions of the Mark Vygus dictionaries. These are quite extensive, typewritten and available on the internet as a PDF. Due to their sheer length, searching becomes quite the feat, however.</p>
+        <p>To demonstrate this frustration, imagine you want to look up the Middle Egyptian word pronounced, <i>“it”</i>, meaning “father”. Running a CTRL + F search through the Dickson or Vygus dictionaries will also capture all of the entries where the translation contains the English word “it”. In the Vygus dictionary, this query has over a thousand matches, which significantly hinders one’s ability to find the entry they’re looking for.</p>
+        <div class="text-center"><img src="https://i.imgur.com/iCmFZTN.png" /></div>
+        <p>The natural solution to this was to place all of the entries in a database and allow search that is transliteration, translation or Gardiner-specific. This too, posed a problem, however. While all of the text in the PDF is computer-readable, and can be fed into a database, the glyphs themselves are treated as images. This means that when reading in each of the PDFs, information about the glyphs is completely lost.</p>
+        <p>There is hope! The Gardiner codes that end each entry (“A40 – X1 – I9 – Z2” above) encode the signs that comprise the entry. This isn’t a complete solution, though, as all the formatting that describes where the images are in relation to one another is still lost. Any reconstruction based solely on the Gardiner signs would wind up with sequential images, rather than images stacked in blocks.</p>
+        <p>Here is an example of an unformatted entry next to its formatted version:</p>
+        <div class="flex text-center"><img src="https://i.imgur.com/kc2YhNh.png" /><img src="https://i.imgur.com/p5cfsxI.png" /></div>
+        <p>In order to reconstruct the formatting, two approaches were taken. One was a visual computing solution that took in images of each entry and a list of Gardiner signs and outputted a string encoding the expected formatting. This algorithm segments an input image into sub-images containing glyphs, then classifies each sub-image as a Gardiner symbol. Then given the sub-image location and Gardiner identity, the formatting is able to be reconstructed.</p>
+        <p>To fill in the gaps for when the visual computing solution fails or an image dataset is unavailable for a dictionary, there is an additional n-gram model that reconstructs formatting using a method based on Katz back-off. This n-gram model is fed a series of formatted texts, as well as the successfully classified entries from the visual computing algorithm described above. The algorithm takes a count of all formatted trigrams and bigrams and attempts to reconstruct unknown entries’ most likely formatting based on their trigrams, backing off to bigrams when necessary.</p>
+    </div>
+    <div class="justify-content-center">
+        <h3 class="top_margin">On-going Work</h3>
+        <p>On the front-end side, I would like to fix the known bug where one can’t enter words containing more than one of the same Gardiner signs, forcing them to disable Exact Match in order to successfully conduct the query.</p>
+        <p>I have built an IBM-1 machine translation model of Middle Egyptian transliteration to English. Due to the relatively small corpus it’s trained on and difficulty distinguishing homonyms, I’d like to improve this before publishing the code on Github. This may be in the form of moving to an ELMo or BERT translation model, or by pivoting off of a similar language with a larger available corpus (likely Coptic or Arabic).</p>
+        <p>I would like to expand the number of entries that have been fed into the visual computing solution for formatting as well. Right now, this has only been run on the Vygus dictionary, but I would like to run it on the Dickson dictionary as well to minimize the number of n-gram reconstructed entries.</p>
+    </div>
 </div>

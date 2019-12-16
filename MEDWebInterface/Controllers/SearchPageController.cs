@@ -30,7 +30,7 @@ namespace MEDWebInterface.Controllers
             return View();
         }
 
-        public ActionResult Dedication()
+        public ActionResult References()
         {
             return View();
         }
