@@ -1,0 +1,33 @@
+﻿$switch-unit: px;
+$switch-width: 68;
+$switch-width-sm: 60;
+$switch-width-xs: 48;
+$switch-width-status: 96;
+$switch-width-status-sm: 88;
+$switch-width-status-xs: 76;
+$switch-height: 38; // The default Bootstrap btn height in px
+$switch-height-sm: 31; // The default Bootstrap small btn height in px
+$switch-height-xs: 24; // Extra small btn height in px
+$switch-font-size: 12;
+$switch-font-size-sm: 11;
+$switch-font-size-xs: 10;
+$switch-font-family: $font-family-sans-serif;
+$switch-duration: 150ms;
+$switch-required-color: $danger;
+$switch-invalid-color: $form-feedback-invalid-color;
+
+$switch-checked-color: $white;
+$switch-checked-bg: #dc3545;
+$switch-checked-disabled-opacity: .4;
+$switch-checked-text-io: "I";
+$switch-checked-text-onoff: "On";
+$switch-checked-text-yesno: "Yes";
+$switch-checked-text-status: "Enabled";
+
+$switch-unchecked-color: $white;
+$switch-unchecked-bg: $gray-500;
+$switch-unchecked-disabled-opacity: .6;
+$switch-unchecked-text-io: "O";
+$switch-unchecked-text-onoff: "Off";
+$switch-unchecked-text-yesno: "No";
+$switch-unchecked-text-status: "Disabled";

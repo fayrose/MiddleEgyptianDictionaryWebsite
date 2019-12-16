@@ -33,7 +33,8 @@ namespace MEDWebInterface
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/component-custom-switch.css",
+                      "~/Content/Site.css"));
 
             bundles.Add(new StyleBundle("~/Content/res").Include(
                 "~/Content/res.css"

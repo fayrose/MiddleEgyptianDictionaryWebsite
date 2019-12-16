@@ -30,6 +30,11 @@ namespace MEDWebInterface.Controllers
             return View();
         }
 
+        public ActionResult Dedication()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Submit(SearchQuery userInput)
         {

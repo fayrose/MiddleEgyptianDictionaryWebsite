@@ -16,16 +16,16 @@
             <h3 class="display-4">@ViewBag.Title.</h3>
             <div class="search_div">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-outline-danger search_config" onchange="ChangeText(0); ChangeTextbox(0);">
+                    <label class="btn btn-outline-danger search_config" onchange="ChangeTextbox(0);">
                         @Html.RadioButtonFor(x => x.Type, SearchType.all, new { @style = "display:none;" }) All
                     </label>
-                    <label class="btn btn-outline-danger search_config active" onchange="ChangeText(0); ChangeTextbox(0);">
+                    <label class="btn btn-outline-danger search_config active" onchange="ChangeTextbox(0);">
                         @Html.RadioButtonFor(x => x.Type, SearchType.transliteration, new { @style = "display:none;", @checked = "checked" }) Transliteration
                     </label>
-                    <label class="btn btn-outline-danger search_config" id="translationradio" onchange="ChangeText(1); ChangeTextbox(0);">
+                    <label class="btn btn-outline-danger search_config" id="translationradio" onchange="ChangeTextbox(0);">
                         @Html.RadioButtonFor(x => x.Type, SearchType.translation, new { @style = "display:none;" }) Translation
                     </label>
-                    <label class="btn btn-outline-danger search_config" onchange="ChangeText(0); ChangeTextbox(1); ">
+                    <label class="btn btn-outline-danger search_config" onchange="ChangeTextbox(1); ">
                         @Html.RadioButtonFor(x => x.Type, SearchType.gardiner, new { @style = "display:none;" }) Gardiner Sign
                     </label>
                 </div>
@@ -45,20 +45,27 @@
                     @Html.TextBoxFor(x => x.SignQuery, htmlAttributes: new { @style = "display: none;", @id = "SignQuery"})
                 </div>
             </div>
-            <div style="display:flex;">
-                <div class="search_div">
-                    <label id="exact-match" class="my-toggle btn btn-outline-danger search_config active" for="exactmatchcheck">
-                        @Html.CheckBoxFor(x => x.ExactMatch, htmlAttributes: new { @autocomplete = "off", @style = "display:none;", @class = "toggle-check", @checked = "checked", @id = "exactmatchcheck", @onclick = "MyToggle(0)" })
-                        Exact Match
-                    </label>
+            <div class="row">
+                <div class="toggle-label">
+                    Exact Match:
+                    <div class="custom-switch custom-switch-xs">
+                        <input class="custom-switch-input" id="exactmatchcheck" checked type="checkbox" onclick="UpdateValues()">
+                        <label class="custom-switch-btn" for="exactmatchcheck"></label>
+                    </div>
                 </div>
+                @Html.CheckBoxFor(x => x.ExactMatch, htmlAttributes: new { @style = "display: none", @id = "exactmatch", @checked = "checked" })
 
-                <div class="search_div">
-                    <label id="formatted-toggle" class="my-toggle btn btn-outline-danger search_config active">
-                        @Html.CheckBoxFor(x => x.DisplayFormatted, htmlAttributes: new { @autocomplete = "off", @style = "display:none;", @class = "toggle-check", @checked = "checked", @onclick = "MyToggle(1)" })
-                        Display Formatted
-                    </label>
+                <div class="row">
+                    <div class="toggle-label">
+                        Display Formatting:
+                        <div class="custom-switch custom-switch-xs">
+                            <input class="custom-switch-input" id="formattingcheck" checked type="checkbox" onchange="UpdateValues()">
+                            <label class="custom-switch-btn" for="formattingcheck"></label>
+                        </div>
+                    </div>
                 </div>
+                @Html.CheckBoxFor(x => x.DisplayFormatted, htmlAttributes: new { @style = "display: none", @id = "formatting", @checked = "checked" })
+
             </div>
         </div>
     </div>

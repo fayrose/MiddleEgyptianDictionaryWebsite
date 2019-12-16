@@ -1,0 +1,397 @@
+﻿$switch-unit: px;
+$switch-width: 68;
+$switch-width-sm: 60;
+$switch-width-xs: 48;
+$switch-width-status: 96;
+$switch-width-status-sm: 88;
+$switch-width-status-xs: 76;
+$switch-height: 38; // The default Bootstrap btn height in px
+$switch-height-sm: 31; // The default Bootstrap small btn height in px
+$switch-height-xs: 24; // Extra small btn height in px
+$switch-font-size: 12;
+$switch-font-size-sm: 11;
+$switch-font-size-xs: 10;
+$switch-font-family: $font-family-sans-serif;
+$switch-duration: 150ms;
+$switch-required-color: $danger;
+$switch-invalid-color: $form-feedback-invalid-color;
+
+$switch-checked-color: $white;
+$switch-checked-bg: #dc3545;
+$switch-checked-disabled-opacity: .4;
+$switch-checked-text-io: "I";
+$switch-checked-text-onoff: "On";
+$switch-checked-text-yesno: "Yes";
+$switch-checked-text-status: "Enabled";
+
+$switch-unchecked-color: $white;
+$switch-unchecked-bg: $gray-500;
+$switch-unchecked-disabled-opacity: .6;
+$switch-unchecked-text-io: "O";
+$switch-unchecked-text-onoff: "Off";
+$switch-unchecked-text-yesno: "No";
+$switch-unchecked-text-status: "Disabled";
+
+.custom-switch {
+    line-height: ($switch-font-size + $switch-unit);
+
+    .custom-switch-input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+
+        &,
+        &:after,
+        &:before,
+        & *,
+        & *:after,
+        & *:before,
+        & + .custom-switch-btn {
+            box-sizing: border-box;
+
+            &:selection {
+                background: none;
+            }
+        }
+
+        + .custom-switch-btn {
+            outline: 0;
+            display: inline-block;
+            position: relative;
+            user-select: none;
+            cursor: pointer;
+            width: ($switch-width + $switch-unit);
+            height: ($switch-height + $switch-unit);
+            margin: 0;
+            padding: ((round(($switch-height - (round($switch-height * .75))) / 2) - 1) + $switch-unit);
+            background: $switch-unchecked-bg;
+            border-radius: (($switch-height * 2) + $switch-unit);
+            transition: all $switch-duration ease;
+
+            &:after,
+            &:before {
+                position: relative;
+                display: block;
+                content: "";
+                width: (round($switch-height * .75) + $switch-unit);
+                height: (round($switch-height * .75) + $switch-unit);
+            }
+
+            &:after {
+                left: ((round(($switch-height - (round($switch-height * .75))) / 2) - 3) + $switch-unit);
+                border-radius: 50%;
+                background: white;
+                transition: all $switch-duration ease;
+            }
+
+            &:before {
+                display: none;
+            }
+
+            &.text-hide {
+                top: -.80rem;
+            }
+        }
+
+        &:checked + .custom-switch-btn {
+            background: $switch-checked-bg;
+
+            &:after {
+                left: (($switch-width - $switch-height) + $switch-unit);
+            }
+
+            ~ .custom-switch-content-checked {
+                opacity: 1;
+                height: auto;
+            }
+
+            ~ .custom-switch-content-unchecked {
+                display: none;
+                opacity: 0;
+                height: 0;
+            }
+        }
+
+        &:not(:checked) + .custom-switch-btn {
+            ~ .custom-switch-content-checked {
+                display: none;
+                opacity: 0;
+                height: 0;
+            }
+
+            ~ .custom-switch-content-unchecked {
+                opacity: 1;
+                height: auto;
+            }
+        }
+
+        &[disabled] {
+            + .custom-switch-btn {
+                background: rgba($switch-unchecked-bg, $switch-unchecked-disabled-opacity);
+                cursor: default;
+            }
+
+            &:checked + .custom-switch-btn {
+                background: rgba($switch-checked-bg, $switch-checked-disabled-opacity);
+            }
+        }
+
+        &:not([disabled]) {
+            &:focus {
+                ~ .custom-switch-btn {
+                    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 0 .25rem rgba(56,123,189,.25);
+                }
+            }
+        }
+
+        &[required] {
+            ~ .custom-switch-btn {
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 0 .125rem rgba($switch-required-color,.5);
+            }
+        }
+    }
+
+    .custom-switch-form-text {
+        display: inline-block;
+        height: ($switch-height + $switch-unit);
+        margin-left: .5rem;
+        line-height: ($switch-height + $switch-unit);
+        vertical-align: top;
+    }
+
+    &.custom-switch-label-io {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width}' height='#{$switch-height}'><text x='#{($switch-width / 1.6)}' y='#{($switch-height / 1.6)}' font-size='#{($switch-font-size + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-io}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width}' height='#{$switch-height}'><text x='#{($switch-width / 3.75)}' y='#{($switch-height / 1.6)}' font-size='#{($switch-font-size + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-io}</text></svg>");
+            }
+        }
+    }
+
+    &.custom-switch-label-onoff {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width}' height='#{$switch-height}'><text x='#{($switch-width / 1.75)}' y='#{($switch-height / 1.6)}' font-size='#{($switch-font-size + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-onoff}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width}' height='#{$switch-height}'><text x='#{($switch-width / 7)}' y='#{($switch-height / 1.6)}' font-size='#{($switch-font-size + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-onoff}</text></svg>");
+            }
+        }
+    }
+
+    &.custom-switch-label-yesno {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width}' height='#{$switch-height}'><text x='#{($switch-width / 1.75)}' y='#{($switch-height / 1.6)}' font-size='#{($switch-font-size + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-yesno}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width}' height='#{$switch-height}'><text x='#{($switch-width / 7)}' y='#{($switch-height / 1.6)}' font-size='#{($switch-font-size + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-yesno}</text></svg>");
+            }
+        }
+    }
+
+    &.custom-switch-label-status {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                width: ($switch-width-status + $switch-unit);
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-status}' height='#{$switch-height}'><text x='#{($switch-width / 1.75)}' y='#{($switch-height / 1.6)}' font-size='#{($switch-font-size + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-status}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-status}' height='#{$switch-height}'><text x='#{($switch-width / 7)}' y='#{($switch-height / 1.6)}' font-size='#{($switch-font-size + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-status}</text></svg>");
+
+                &:after {
+                    left: (($switch-width-status - $switch-height) + $switch-unit);
+                }
+            }
+        }
+    }
+}
+
+.custom-switch-sm {
+    line-height: ($switch-font-size-sm + $switch-unit);
+
+    .custom-switch-input {
+        + .custom-switch-btn {
+            width: ($switch-width-sm + $switch-unit);
+            height: ($switch-height-sm + $switch-unit);
+            padding: ((round(($switch-height-sm - (round($switch-height-sm * .75))) / 2) - 1) + $switch-unit);
+            border-radius: (($switch-height-sm * 2) + $switch-unit);
+
+            &:after,
+            &:before {
+                width: (round($switch-height-sm * .75) + $switch-unit);
+                height: (round($switch-height-sm * .75) + $switch-unit);
+            }
+
+            &:after {
+                left: ((round(($switch-height-sm - (round($switch-height-sm * .75))) / 2) - 2) + $switch-unit);
+            }
+        }
+
+        &:checked + .custom-switch-btn {
+            &:after {
+                left: (($switch-width-sm - $switch-height-sm) + $switch-unit);
+            }
+        }
+    }
+
+    .custom-switch-form-text {
+        height: ($switch-height-sm + $switch-unit);
+        margin-left: .5rem;
+        line-height: ($switch-height-sm + $switch-unit);
+    }
+
+    &.custom-switch-label-io {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-sm}' height='#{$switch-height-sm}'><text x='#{($switch-width-sm / 1.6)}' y='#{($switch-height-sm / 1.6)}' font-size='#{($switch-font-size-sm + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-io}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-sm}' height='#{$switch-height-sm}'><text x='#{($switch-width-sm / 3.75)}' y='#{($switch-height-sm / 1.6)}' font-size='#{($switch-font-size-sm + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-io}</text></svg>");
+            }
+        }
+    }
+
+    &.custom-switch-label-onoff {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-sm}' height='#{$switch-height-sm}'><text x='#{($switch-width-sm / 1.825)}' y='#{($switch-height-sm / 1.6)}' font-size='#{($switch-font-size-sm + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-onoff}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-sm}' height='#{$switch-height-sm}'><text x='#{($switch-width-sm / 7)}' y='#{($switch-height-sm / 1.6)}' font-size='#{($switch-font-size-sm + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-onoff}</text></svg>");
+            }
+        }
+    }
+
+    &.custom-switch-label-yesno {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-sm}' height='#{$switch-height-sm}'><text x='#{($switch-width-sm / 1.825)}' y='#{($switch-height-sm / 1.6)}' font-size='#{($switch-font-size-sm + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-yesno}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-sm}' height='#{$switch-height-sm}'><text x='#{($switch-width-sm / 7)}' y='#{($switch-height-sm / 1.6)}' font-size='#{($switch-font-size-sm + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-yesno}</text></svg>");
+            }
+        }
+    }
+
+    &.custom-switch-label-status {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                width: ($switch-width-status-sm + $switch-unit);
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-status-sm}' height='#{$switch-height-sm}'><text x='#{($switch-width-sm / 1.825)}' y='#{($switch-height-sm / 1.6)}' font-size='#{($switch-font-size-sm + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-status}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-status-sm}' height='#{$switch-height-sm}'><text x='#{($switch-width-sm / 7)}' y='#{($switch-height-sm / 1.6)}' font-size='#{($switch-font-size-sm + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-status}</text></svg>");
+
+                &:after {
+                    left: (($switch-width-status-sm - $switch-height-sm) + $switch-unit);
+                }
+            }
+        }
+    }
+}
+
+.custom-switch-xs {
+    line-height: ($switch-font-size-xs + $switch-unit);
+
+    .custom-switch-input {
+        + .custom-switch-btn {
+            width: ($switch-width-xs + $switch-unit);
+            height: ($switch-height-xs + $switch-unit);
+            padding: ((round(($switch-height-xs - (round($switch-height-xs * .75))) / 2)) + $switch-unit);
+            border-radius: (($switch-height-xs * 2) + $switch-unit);
+
+            &:after,
+            &:before {
+                width: (round($switch-height-xs * .75) + $switch-unit);
+                height: (round($switch-height-xs * .75) + $switch-unit);
+            }
+
+            &:after {
+                left: ((round(($switch-height-xs - (round($switch-height-xs * .75))) / 2) - 2) + $switch-unit);
+            }
+        }
+
+        &:checked + .custom-switch-btn {
+            &:after {
+                left: (($switch-width-xs - $switch-height-xs) + $switch-unit);
+            }
+        }
+    }
+
+    .custom-switch-form-text {
+        height: ($switch-height-xs + $switch-unit);
+        margin-left: .5rem;
+        line-height: ($switch-height-xs + $switch-unit);
+    }
+
+    &.custom-switch-label-io {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-xs}' height='#{$switch-height-xs}'><text x='#{($switch-width-xs / 1.75)}' y='#{($switch-height-xs / 1.6)}' font-size='#{($switch-font-size-xs + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-io}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-xs}' height='#{$switch-height-xs}'><text x='#{($switch-width-xs / 3.75)}' y='#{($switch-height-xs / 1.6)}' font-size='#{($switch-font-size-xs + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-io}</text></svg>");
+            }
+        }
+    }
+
+    &.custom-switch-label-onoff {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-xs}' height='#{$switch-height-xs}'><text x='#{($switch-width-xs / 1.875)}' y='#{($switch-height-xs / 1.6)}' font-size='#{($switch-font-size-xs + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-onoff}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-xs}' height='#{$switch-height-xs}'><text x='#{($switch-width-xs / 7)}' y='#{($switch-height-xs / 1.6)}' font-size='#{($switch-font-size-xs + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-onoff}</text></svg>");
+            }
+        }
+    }
+
+    &.custom-switch-label-yesno {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-xs}' height='#{$switch-height-xs}'><text x='#{($switch-width-xs / 1.875)}' y='#{($switch-height-xs / 1.6)}' font-size='#{($switch-font-size-xs + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-yesno}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-xs}' height='#{$switch-height-xs}'><text x='#{($switch-width-xs / 7)}' y='#{($switch-height-xs / 1.6)}' font-size='#{($switch-font-size-xs + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-yesno}</text></svg>");
+            }
+        }
+    }
+
+    &.custom-switch-label-status {
+        .custom-switch-input {
+            + .custom-switch-btn {
+                width: ($switch-width-status-xs + $switch-unit);
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-status-xs}' height='#{$switch-height-xs}'><text x='#{($switch-width-xs / 1.875)}' y='#{($switch-height-xs / 1.6)}' font-size='#{($switch-font-size-xs + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-unchecked-color}'>#{$switch-unchecked-text-status}</text></svg>");
+            }
+
+            &:checked + .custom-switch-btn {
+                background-image: svg-uri("<svg xmlns='http://www.w3.org/2000/svg' width='#{$switch-width-status-xs}' height='#{$switch-height-xs}'><text x='#{($switch-width-xs / 7)}' y='#{($switch-height-xs / 1.6)}' font-size='#{($switch-font-size-xs + $switch-unit)}' font-family='#{$switch-font-family}' fill='#{$switch-checked-color}'>#{$switch-checked-text-status}</text></svg>");
+
+                &:after {
+                    left: (($switch-width-status-xs - $switch-height-xs) + $switch-unit);
+                }
+            }
+        }
+    }
+}
+
+// Validation
+
+.is-invalid .custom-switch .custom-switch-input ~ .custom-switch-btn,
+.was-validated .custom-switch:invalid .custom-switch-input ~ .custom-switch-btn {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 0 .25rem rgba($switch-invalid-color,1);
+}
