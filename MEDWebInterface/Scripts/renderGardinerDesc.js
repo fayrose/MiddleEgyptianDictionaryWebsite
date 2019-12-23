@@ -120,6 +120,7 @@ getCategories = function () {
 
 function displayEntries() {
     $(".js-example-basic-single").on('select2:select', function (e) {
+        $('.table-hover').show()
         $('.table-hover > tbody').html('');
         var cat = e.params.data.id;
         var keys = Object.keys(ResContext.signInfo);
