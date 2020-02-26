@@ -20,7 +20,7 @@ namespace MEDWebInterface
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.*"));
 
             bundles.Add(new ScriptBundle("~/bundles/popper").Include(
                 "~/Scripts/popper*"));
