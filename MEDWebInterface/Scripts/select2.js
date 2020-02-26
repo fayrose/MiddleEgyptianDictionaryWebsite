@@ -1292,7 +1292,8 @@ S2.define('select2/results',[
         if (self.options.get('multiple')) {
           self.trigger('unselect', {
             originalEvent: evt,
-            data: data
+            data: data,
+            shouldRemove: !self.options.get('allowDuplicates')
           });
         } else {
           self.trigger('close', {});
@@ -1717,7 +1718,8 @@ S2.define('select2/selection/multiple',[
 
         self.trigger('unselect', {
           originalEvent: evt,
-          data: data
+          data: data,
+          shouldRemove: true
         });
       }
     );
@@ -1753,6 +1755,11 @@ S2.define('select2/selection/multiple',[
 
     if (data.length === 0) {
       return;
+    }
+
+    if (this.options.get("sortSelectedBySelectionTime")) {
+      data = data.sort((a, b) => a.timeStamp - b.timeStamp);
+      //data.foreach(function (item) { item.selected = true; });
     }
 
     var $selections = [];
@@ -1896,7 +1903,8 @@ S2.define('select2/selection/allowClear',[
 
     for (var d = 0; d < data.length; d++) {
       unselectData = {
-        data: data[d]
+        data: data[d],
+        shouldRemove: true
       };
 
       // Trigger the `unselect` event, so people can prevent it from being
@@ -2159,7 +2167,8 @@ S2.define('select2/selection/search',[
 
   Search.prototype.searchRemoveChoice = function (decorated, item) {
     this.trigger('unselect', {
-      data: item
+      data: item,
+      shouldRemove: true
     });
 
     this.$search.val(item.text);
@@ -3198,7 +3207,7 @@ S2.define('select2/data/select',[
     data.selected = true;
 
     // If data.element is a DOM node, use it instead
-    if ($(data.element).is('option')) {
+      if ($(data.element).is('option')) {
       data.element.selected = true;
 
       this.$element.trigger('change');
@@ -3272,11 +3281,34 @@ S2.define('select2/data/select',[
     this.container = container;
 
     container.on('select', function (params) {
+      params.data.timeStamp = params.originalEvent.timeStamp;
       self.select(params.data);
     });
 
     container.on('unselect', function (params) {
-      self.unselect(params.data);
+      if (!this.$element.prop('multiple') || params.shouldRemove) {
+        self.unselect(params.data);
+      }
+      else {
+        const incrementId = function(name) {
+          name = String(name);
+          const idxStart = name.lastIndexOf("___");
+      
+          if (idxStart == -1) {
+              return name + "___0001";
+          }
+          else {
+              const numStr = name.substr(idxStart + 3);
+              const idNum = parseInt(numStr) + 1;
+              const paddedNum = String(idNum).padStart(4, '0')
+              return name.substr(0, idxStart + 3) + paddedNum
+          }
+        }
+        const clone = JSON.parse(JSON.stringify(params.data));
+        clone.timeStamp = params.originalEvent.timeStamp;
+        clone.id = incrementId(clone.id);
+        self.select(clone);
+      }
     });
   };
 
