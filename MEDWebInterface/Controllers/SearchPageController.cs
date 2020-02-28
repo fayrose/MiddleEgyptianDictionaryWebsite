@@ -81,9 +81,9 @@ namespace MEDWebInterface.Controllers
             string input = key.Replace("AA", "J").Replace("Aa", "J");
             var bitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject(input);
             MemoryStream stream = new MemoryStream();
-            bitmap.Save(stream, ImageFormat.Tiff);
+            bitmap.Save(stream, ImageFormat.Png);
             stream.Seek(0, SeekOrigin.Begin);
-            return new FileStreamResult(stream, "image/tiff");
+            return new FileStreamResult(stream, "image/png");
         }
     }
 }
