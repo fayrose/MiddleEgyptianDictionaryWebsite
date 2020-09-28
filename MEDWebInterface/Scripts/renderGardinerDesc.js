@@ -126,7 +126,7 @@ function displayEntries() {
         var keys = Object.keys(ResContext.signInfo);
         if (cat == 'A') {
             // Get keys & filter
-            var filtered = keys.filter(key => key[0] == cat && key[1].isDigit());
+            var filtered = keys.filter(key => key[0] == cat && key[1] !== 'a');
         } else {
             // Get keys & filter
             var filtered = keys.filter(key => key.startsWith(cat));
