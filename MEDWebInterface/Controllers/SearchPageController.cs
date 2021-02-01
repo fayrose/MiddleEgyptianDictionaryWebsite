@@ -80,7 +80,12 @@ namespace MEDWebInterface.Controllers
                 char[] caseSensitive = new char[] { 'A', 'a', 's', 'S', 'h', 'H', 'x', 'X', 'd', 'D', 't', 'T' };
                 query.Query = String.Join("", query.Query.Select(x => caseSensitive.Contains(x) ? x : char.ToLower(x)));
             }
-            return wf.ConductSearch(query);
+            var answer = wf.ConductSearch(query) // Prioritize multiple-translation entries and Faulkner entries, then order by translit
+                                          .OrderByDescending(x => x.Translations.SelectMany(z => z.TranslationMetadata.Select(y => y.DictionaryName)).Contains(DataSource.faulkner))
+                                          .ThenByDescending(x => x.Translations.SelectMany(y => y.TranslationMetadata.Select(z => (int)z.DictionaryName)).Sum())
+                                          .ThenBy(x => x.Transliteration)
+                                          .ThenBy(x => x.GardinerSigns);
+            return answer;
         }
         public FileStreamResult Image(string key)
         {

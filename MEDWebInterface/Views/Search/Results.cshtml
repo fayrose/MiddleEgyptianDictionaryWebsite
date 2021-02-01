@@ -58,24 +58,51 @@
                                     @foreach (var translation in result.Translations)
                                     {
                                     <li>
-                                        @if (!(@translation.TranslationMetadata.PartOfSpeech is null))
+                                        @if (translation.TranslationMetadata.Count() > 0)
                                         {
-                                            @:(@translation.TranslationMetadata.PartOfSpeech):
-                                        }
-                                        @if (translation.TranslationMetadata.DictionaryName != DataSource.faulkner)
-                                        {
+                                            List<string> toJoin = new List<string>();
+                                            var inner = translation.TranslationMetadata.Select(m => m.Page is null ?
+                                                                                                    new Tuple<string, Metadata>($"{new CultureInfo("en-US", false).TextInfo.ToTitleCase(m.DictionaryName.ToString())}", m) :
+                                                                                                    new Tuple<string, Metadata>($"{new CultureInfo("en-US", false).TextInfo.ToTitleCase(m.DictionaryName.ToString())} <span class=\"badge bg-white text-dark\">(p. {m.Page}, {m.IndexOnPage + 1})</span>", m))
+                                                .ToDictionary(x => x.Item1, y => y.Item2);
 
+                                            var color = "";
+                                            foreach (var s in inner)
+                                            {
+                                                switch (s.Value.DictionaryName)
+                                                {
+                                                    case DataSource.faulkner:
+                                                        color = "bg-info";
+                                                        break;
+                                                    case DataSource.vygus:
+                                                        color = "bg-success text-white";
+                                                        break;
+                                                    case DataSource.dickson:
+                                                        color = "bg-warning";
+                                                        break;
+                                                    case DataSource.lexicon:
+                                                        color = "bg-secondary text-white";
+                                                        break;
+                                                }
+                                                toJoin.Add($"<span class=\"badge {color}\">{s.Key}</span>");
+                                            }
+                                            @Html.Raw(string.Join("\t", toJoin))
+                                        }
+                                        @if (translation.TranslationMetadata.Select(x => x.PartOfSpeech).Where(x => x != null).Count() > 0)
+                                        {
+                                            @: [@Html.Raw($"<i>{string.Join(", ", translation.TranslationMetadata.Select(x => x.PartOfSpeech).Where(x => x != null))}</i>")]
+                                        }
+                                        - 
+                                        <!--Faulkner metadata will be in the first position always bc it is the only HTML translation, and will always have exactly one metadata obj-->
+                                        @if (translation.TranslationMetadata[0].DictionaryName != DataSource.faulkner)
+                                        {
                                             @translation.translation
                                         }
                                         else
                                         {
                                             @Html.Raw(translation.translation)
                                         }
-                                        - <i>@(new CultureInfo("en-US", false).TextInfo.ToTitleCase(translation.TranslationMetadata.DictionaryName.ToString()))</i>
-                                        @if (translation.TranslationMetadata.DictionaryName == DataSource.faulkner)
-                                        {
-                                            <i>(Page @result.Page, #@(result.IndexOnPage+1))</i>
-                                        }
+
                                     </li>
                                     }
                                 </ul>
