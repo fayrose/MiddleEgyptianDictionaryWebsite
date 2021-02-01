@@ -57,14 +57,26 @@
                                 <ul>
                                     @foreach (var translation in result.Translations)
                                     {
-                                        <li>
-                                            @if (!(@translation.TranslationMetadata.PartOfSpeech is null))
-                                            {
-                                                @:(@translation.TranslationMetadata.PartOfSpeech):
-                                            }
-                                            @translation.translation -
-                                            <i>@(new CultureInfo("en-US", false).TextInfo.ToTitleCase(translation.TranslationMetadata.DictionaryName.ToString()))</i>
-                                        </li>
+                                    <li>
+                                        @if (!(@translation.TranslationMetadata.PartOfSpeech is null))
+                                        {
+                                            @:(@translation.TranslationMetadata.PartOfSpeech):
+                                        }
+                                        @if (translation.TranslationMetadata.DictionaryName != DataSource.faulkner)
+                                        {
+
+                                            @translation.translation
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(translation.translation)
+                                        }
+                                        - <i>@(new CultureInfo("en-US", false).TextInfo.ToTitleCase(translation.TranslationMetadata.DictionaryName.ToString()))</i>
+                                        @if (translation.TranslationMetadata.DictionaryName == DataSource.faulkner)
+                                        {
+                                            <i>(Page @result.Page, #@(result.IndexOnPage+1))</i>
+                                        }
+                                    </li>
                                     }
                                 </ul>
                             </td>

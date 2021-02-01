@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using MEDWebInterface.Models;
-using MEDWebInterface.Services;
 using MiddleEgyptianDictionary;
 using MiddleEgyptianDictionary.Models;
 using MiddleEgyptianDictionary.Services;
@@ -47,7 +45,7 @@ namespace MEDWebInterface
             
         }
 
-        private IEnumerable<DictionaryEntry> SearchByTranslation(string searchQuery, bool exactMatch)
+        private List<DictionaryEntry> SearchByTranslation(string searchQuery, bool exactMatch)
         {
             var keygen = new KeywordGenerator();
             var sanitizedKeywords = keygen.SanitizeSearchInput(searchQuery, null);
@@ -71,7 +69,7 @@ namespace MEDWebInterface
                     @as: (KeywordResult result) => result.DictionaryEntry)
                 .Unwind<KeywordResult, UnwoundKeywordResult>(x => x.DictionaryEntry)
                 .ToList();
-            return something.Select(x => x.DictionaryEntry);
+            return something.Select(x => x.DictionaryEntry).ToList();
         }
 
         private List<DictionaryEntry> SearchAll(string input, bool exactMatch)
