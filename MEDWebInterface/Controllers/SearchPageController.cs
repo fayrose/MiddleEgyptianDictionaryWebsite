@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MEDWebInterface.Controllers
@@ -74,6 +75,11 @@ namespace MEDWebInterface.Controllers
         private IEnumerable<DictionaryEntry> SearchDatabase(SearchQuery query)
         {
             DefineVariables();
+            if (query.Type == SearchType.transliteration)
+            {
+                char[] caseSensitive = new char[] { 'A', 'a', 's', 'S', 'h', 'H', 'x', 'X', 'd', 'D', 't', 'T' };
+                query.Query = String.Join("", query.Query.Select(x => caseSensitive.Contains(x) ? x : char.ToLower(x)));
+            }
             return wf.ConductSearch(query);
         }
         public FileStreamResult Image(string key)
