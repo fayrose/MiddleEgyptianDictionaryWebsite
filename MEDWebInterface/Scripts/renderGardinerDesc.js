@@ -112,14 +112,14 @@ getCategories = function () {
             text: "Z : Strokes, Geometric Signs and Hieratic Signs",
         },
         {
-            id: 'AA',
-            text: "AA: Unclassified Signs",
+            id: 'Aa',
+            text: "Aa: Unclassified Signs",
         }
     ];
 }
 
 function displayEntries() {
-    $(".js-example-basic-single").on('select2:select', function (e) {
+    $(".js-example-basic-single").on('select2:select', async function (e) {
         $('.table-hover').show()
         $('.table-hover > tbody').html('');
         var cat = e.params.data.id;
@@ -144,6 +144,6 @@ function displayEntries() {
             $('.table-hover > tbody:last-child').append(
                 '<tr><td>' + glyphName + '</td><td>' + glyphDescription + '</td></tr>');
         }
-        ResWeb();
+        await new Promise(_ => ResWeb());
     });
 }
