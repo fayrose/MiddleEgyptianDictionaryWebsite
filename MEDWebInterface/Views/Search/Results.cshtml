@@ -4,116 +4,126 @@
 @using MiddleEgyptianDictionary
 @using System.Globalization
 <div class="page-header">
-    <h3 class="top_margin display-4">Result</h3>
+    <h3 class="top_margin display-4">Results</h3>
 </div>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Hieroglyphs</th>
-            <th>Transliteration</th>
-            <th>Gardiner Signs</th>
-            <th>Translations</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            if (Model != null && Model.Results != null)
-            {
-                foreach (var result in Model.Results)
+    @if (Model != null && Model.Results != null && Model.Results.Count() > 0)
+    { 
+        <table class="table table-hover table-responsive">
+            <thead style="width: 100%">
+                <tr>
+                    <th>Hieroglyphs</th>
+                    <th>Transliteration</th>
+                    <th>Gardiner Signs</th>
+                    <th>Translations</th>
+                </tr>
+            </thead>
+            <tbody style="width:100%">
+                @foreach (var result in Model.Results)
                 {
-                    <tr>
-                        <td>
-                            @if (Model.DisplayFormatted)
+                <tr>
+                    <td>
+                        @if (Model.DisplayFormatted)
+                        {
+                            if (!result.GardinerSigns.Contains(' ') &&
+                                (Model.UnknownGlyphs.Contains(result.ManuelDeCodage) ||
+                                 Model.UnknownGlyphs.Contains(result.Res)))
                             {
-                                if (!result.GardinerSigns.Contains(' ') &&
-                                    (Model.UnknownGlyphs.Contains(result.ManuelDeCodage) ||
-                                     Model.UnknownGlyphs.Contains(result.Res))) 
-                                {
-                                    <img src="/Search/Image?key=@result.GardinerSigns" alt="@result.GardinerSigns" style="max-height:40px; max-width: 36px;" />  
-                                }
-                                else
-                                {
-                                    <canvas class="res">
-                                        @(result.Res ?? result.ManuelDeCodage.Replace("AA", "Aa"))
-                                    </canvas>
-                                }
+                                <img src="/Search/Image?key=@result.GardinerSigns" alt="@result.GardinerSigns" style="max-height:40px; max-width: 36px;" />
                             }
                             else
                             {
-                                <span class="large_text large-text">
-                                    @GardinerConverter.ConvertGardiner(result.GardinerSigns)
-                                </span>
+                                <canvas class="res">
+                                    @(result.Res ?? result.ManuelDeCodage.Replace("AA", "Aa"))
+                                </canvas>
                             }
-                        </td>
-                        <td>
-                            @GardinerConverter.PrettifyTransliteration(result.Transliteration)
-                        </td>
-                        <td>
-                            @result.GardinerSigns
-                        </td>
-                        @if (result.Translations != null && result.Translations.Count > 0)
+                        }
+                        else
                         {
-                            <td>
-                                <ul>
+                            <span class="large_text large-text">
+                                @GardinerConverter.ConvertGardiner(result.GardinerSigns)
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @GardinerConverter.PrettifyTransliteration(result.Transliteration)
+                    </td>
+                    <td>
+                        @result.GardinerSigns
+                    </td>
+                    @if (result.Translations != null && result.Translations.Count > 0)
+                    {
+                        <td>
+                            <table class="table table-responsive" style="width: 100%">
+                                <tbody style="width: 100%">
                                     @foreach (var translation in result.Translations)
                                     {
-                                    <li>
-                                        @if (translation.TranslationMetadata.Count() > 0)
-                                        {
-                                            List<string> toJoin = new List<string>();
-                                            var inner = translation.TranslationMetadata.Select(m => m.Page is null ?
-                                                                                                    new Tuple<string, Metadata>($"{new CultureInfo("en-US", false).TextInfo.ToTitleCase(m.DictionaryName.ToString())}", m) :
-                                                                                                    new Tuple<string, Metadata>($"{new CultureInfo("en-US", false).TextInfo.ToTitleCase(m.DictionaryName.ToString())} <span class=\"badge bg-white text-dark\">(p. {m.Page}, {m.IndexOnPage + 1})</span>", m))
-                                                .ToDictionary(x => x.Item1, y => y.Item2);
-
-                                            var color = "";
-                                            foreach (var s in inner)
+                                        <tr>
+                                            <!--Add dictionary-name badges-->
+                                            @if (translation.TranslationMetadata.Count() > 0)
                                             {
-                                                switch (s.Value.DictionaryName)
-                                                {
-                                                    case DataSource.faulkner:
-                                                        color = "bg-info";
-                                                        break;
-                                                    case DataSource.vygus:
-                                                        color = "bg-success text-white";
-                                                        break;
-                                                    case DataSource.dickson:
-                                                        color = "bg-warning";
-                                                        break;
-                                                    case DataSource.lexicon:
-                                                        color = "bg-secondary text-white";
-                                                        break;
-                                                }
-                                                toJoin.Add($"<span class=\"badge {color}\">{s.Key}</span>");
-                                            }
-                                            @Html.Raw(string.Join("\t", toJoin))
-                                        }
-                                        @if (translation.TranslationMetadata.Select(x => x.PartOfSpeech).Where(x => x != null).Count() > 0)
-                                        {
-                                            @: [@Html.Raw($"<i>{string.Join(", ", translation.TranslationMetadata.Select(x => x.PartOfSpeech).Where(x => x != null))}</i>")]
-                                        }
-                                        - 
-                                        <!--Faulkner metadata will be in the first position always bc it is the only HTML translation, and will always have exactly one metadata obj-->
-                                        @if (translation.TranslationMetadata[0].DictionaryName != DataSource.faulkner)
-                                        {
-                                            @translation.translation
-                                        }
-                                        else
-                                        {
-                                            @Html.Raw(translation.translation)
-                                        }
+                                                List<string> toJoin = new List<string>();
+                                                var inner = translation.TranslationMetadata.Select(m => m.Page is null ?
+                                                                                                        new Tuple<string, Metadata>($"{new CultureInfo("en-US", false).TextInfo.ToTitleCase(m.DictionaryName.ToString())}", m) :
+                                                                                                        new Tuple<string, Metadata>($"{new CultureInfo("en-US", false).TextInfo.ToTitleCase(m.DictionaryName.ToString())} <span class=\"badge bg-white text-dark\">(p. {m.Page}, {m.IndexOnPage + 1})</span>", m))
+                                                    .ToDictionary(x => x.Item1, y => y.Item2);
 
-                                    </li>
-                                    }
-                                </ul>
-                            </td>
-                        }
-                    </tr>
+                                                var color = "";
+                                                foreach (var s in inner)
+                                                {
+                                                    switch (s.Value.DictionaryName)
+                                                    {
+                                                        case DataSource.faulkner:
+                                                            color = "lightblue";
+                                                            break;
+                                                        case DataSource.vygus:
+                                                            color = "thistle";
+                                                            break;
+                                                        case DataSource.dickson:
+                                                            color = "lightpink";
+                                                            break;
+                                                        case DataSource.lexicon:
+                                                            color = "moccasin";
+                                                            break;
+                                                    }
+                                                    toJoin.Add($"<span class=\"badge\" style=\"background-color: {color}\">{s.Key}</span>");
+                                                }
+                                                @Html.Raw("<td style=\"width:15%\">" + string.Join("\n", toJoin) + "</td>");
+                                            }
+
+                                            <!--Add parsed part-of-speech-->
+                                            <td style="width: 85%">
+                                                @if (translation.TranslationMetadata.Select(x => x.PartOfSpeech).Where(x => x != null).Count() > 0)
+                                                {
+                                                    @: [@Html.Raw($"<i>{string.Join(", ", translation.TranslationMetadata.Select(x => x.PartOfSpeech).Where(x => x != null))}</i>")]
+                                                }
+
+                                                <!--Add translation text/html-->
+                                                <!--Faulkner metadata will be in the first position always bc it is the only HTML translation, and will always have exactly one metadata obj-->
+                                                @if (translation.TranslationMetadata[0].DictionaryName != DataSource.faulkner)
+                                                {
+                                                    @translation.translation
+                                                }
+                                                else
+                                                {
+                                                    @Html.Raw(translation.translation)
+                                                }
+                                            </td>
+                                        </tr> 
+                                        }
+                                </tbody>
+                            </table>
+                        </td>
+                    }
+                </tr>
                 }
-            }
-        }
-    </tbody>
-</table>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <hr />
+        <h5 style="text-align:center">No results!</h5>
+    }
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
