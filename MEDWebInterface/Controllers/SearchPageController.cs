@@ -79,6 +79,7 @@ namespace MEDWebInterface.Controllers
             {
                 char[] caseSensitive = new char[] { 'A', 'a', 's', 'S', 'h', 'H', 'x', 'X', 'd', 'D', 't', 'T' };
                 query.Query = String.Join("", query.Query.Select(x => caseSensitive.Contains(x) ? x : char.ToLower(x)));
+                query.Query = query.Query.Replace('j', 'i');
             }
             var answer = wf.ConductSearch(query) // Prioritize multiple-translation entries and Faulkner entries, then order by translit
                                           .OrderByDescending(x => x.Translations.SelectMany(z => z.TranslationMetadata.Select(y => y.DictionaryName)).Contains(DataSource.faulkner))

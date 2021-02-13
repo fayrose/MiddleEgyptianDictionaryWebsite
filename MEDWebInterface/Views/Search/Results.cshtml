@@ -33,7 +33,7 @@
                             else
                             {
                                 <canvas class="res">
-                                    @(result.Res ?? result.ManuelDeCodage.Replace("AA", "Aa"))
+                                    @(result.Res?.Replace("AV1", "A100") ?? result.ManuelDeCodage.Replace("AA", "Aa"))
                                 </canvas>
                             }
                         }

@@ -9,6 +9,8 @@
     <!--Show error feedback contained in TempData-->
     <label class="alert-danger" style="padding: 15px; border-radius: 5%; margin-top: 50px;">@TempData["ex"]</label>
 }
+<!--Speed up font display for extended case-->
+<span class="invisible eg-A100"></span>
 @using (Html.BeginForm("Submit", "Search", FormMethod.Post))
 {
     <div style="align-items:center; justify-content:center; display:flex;">
