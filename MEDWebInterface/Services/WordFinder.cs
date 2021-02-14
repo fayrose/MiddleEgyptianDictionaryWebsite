@@ -28,7 +28,7 @@ namespace MEDWebInterface
                 case (SearchType.translation):
                     return SearchByTranslation(query.Query, query.ExactMatch);
                 case (SearchType.gardiner):
-                    return SearchByGardinerSigns(query.SignQuery, query.ExactMatch);
+                    return SearchByGardinerSigns(query.SignQuery.ToUpper(), query.ExactMatch);
             }
         }
 
