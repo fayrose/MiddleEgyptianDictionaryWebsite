@@ -50,7 +50,7 @@
             <div class="row">
                 <div class="toggle-label">
                     Exact Match:
-                    <div class="custom-switch custom-switch-xs">
+                    <div class="custom-switch custom-switch-xs" style="margin-left: 3em;">
                         <input class="custom-switch-input" id="exactmatchcheck" checked type="checkbox" onclick="UpdateValues()">
                         <label class="custom-switch-btn" for="exactmatchcheck"></label>
                     </div>
@@ -58,7 +58,7 @@
                 @Html.CheckBoxFor(x => x.ExactMatch, htmlAttributes: new { @style = "display: none", @id = "exactmatch", @checked = "checked" })
 
                 <div class="row">
-                    <div class="toggle-label">
+                    <div class="toggle-label" style="margin-left: 1em;">
                         Display Formatting:
                         <div class="custom-switch custom-switch-xs">
                             <input class="custom-switch-input" id="formattingcheck" checked type="checkbox" onchange="UpdateValues()">
