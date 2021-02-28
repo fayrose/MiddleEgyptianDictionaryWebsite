@@ -36,6 +36,11 @@ namespace MEDWebInterface.Controllers
             return View();
         }
 
+        public ActionResult Faulkner()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Submit(SearchQuery userInput)
         {
@@ -54,7 +59,7 @@ namespace MEDWebInterface.Controllers
             catch (Exception ex)
             {
                 TempData["ex"] = ex.StackTrace;
-                return RedirectToAction("Results");
+                return RedirectToAction("Index");
             }
         }
 
@@ -88,6 +93,7 @@ namespace MEDWebInterface.Controllers
                                           .ThenBy(x => x.GardinerSigns);
             return answer;
         }
+
         public FileStreamResult Image(string key)
         {
             string input = key.Replace("AA", "J").Replace("Aa", "J");
@@ -96,6 +102,19 @@ namespace MEDWebInterface.Controllers
             bitmap.Save(stream, ImageFormat.Png);
             stream.Seek(0, SeekOrigin.Begin);
             return new FileStreamResult(stream, "image/png");
+        }
+
+        [HttpGet]
+        public JsonResult FaulknerEntries(int page)
+        {
+            DefineVariables();
+            if (page < 17 || page > 419)
+            {
+                TempData["ex"] = new Exception("Page is out of bounds.");
+                return new JsonResult();
+            }
+            var answer = wf.SearchFaulknerByPage(page);
+            return Json(answer, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    $('.select2').hide();
+    $('.select2').children().hide();
     var outData = getOutData();
     $('.js-example-basic-multiple').select2({
 
@@ -60,7 +62,6 @@ function ChangeTextbox(x) {
 }
 
 function UpdateValues() {
-    console.log("Occurs");
     if ($("#exactmatchcheck").is(':checked')) {
         $("#exactmatch").prop("checked", true);
         $("#exactmatch").val(true);
@@ -2252,7 +2253,7 @@ function getOutData() {
         },
         {
             "id": "D21",
-            "text": "D21: mouth [broad] [rA]",
+            "text": "D21: mouth [broad] [r]",
             "html": "<span class=\"uni\">&#x1308B;</span> D21: mouth",
             "display": "D21"
         },
@@ -7268,7 +7269,7 @@ function getOutData() {
         },
         {
             "id": "O34",
-            "text": "O34: bolt [broad] [z]",
+            "text": "O34: bolt [broad] [z] [s]",
             "html": "<span class=\"uni\">&#x13283;</span> O34: bolt",
             "display": "O34"
         },
@@ -11533,14 +11534,8 @@ function getOutData() {
             "display": "Z9"
         },
         {
-            "id": "?",
-            "text": "?",
-            "html": "?",
-            "display": "?"
-        },
-        {
             "id": "Aa1",
-            "text": "AA1: basket from above [narrow]",
+            "text": "AA1: basket from above [narrow] [x]",
             "html": "<span class=\"uni\">&#x1340D;</span> AA1: basket from above",
             "display": "Aa1"
         },

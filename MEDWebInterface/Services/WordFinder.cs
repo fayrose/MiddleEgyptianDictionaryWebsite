@@ -11,12 +11,12 @@ namespace MEDWebInterface
     public class WordFinder
     {
         DbManager Manager;
-        public WordFinder(string connectionString)
+        internal WordFinder(string connectionString)
         {
             Manager = new DbManager();
         }
 
-        public IEnumerable<DictionaryEntry> ConductSearch(SearchQuery query)
+        internal IEnumerable<DictionaryEntry> ConductSearch(SearchQuery query)
         {
             switch (query.Type)
             {
@@ -81,6 +81,21 @@ namespace MEDWebInterface
                                 x.GardinerSigns.Contains(input)).ToList();
             return signsTranslit.Concat(SearchByTranslation(input, exactMatch)).ToList();
 
+        }
+
+        internal List<FullyUnwoundDictionaryEntry> SearchFaulknerByPage(int page)
+        {
+            var entryTable = Manager.GetExistingDbEntries();
+            var filter = Builders<FullyUnwoundDictionaryEntry>.Filter.And(
+            Builders<FullyUnwoundDictionaryEntry>.Filter.Eq(x => (int)x.Translations.TranslationMetadata.DictionaryName, 4),
+            Builders<FullyUnwoundDictionaryEntry>.Filter.Eq(x => (int)x.Translations.TranslationMetadata.Page, page));
+
+            var aggregationPipeline = entryTable.Aggregate()
+                .Unwind<DictionaryEntry, UnwoundDictionaryEntry>(x => x.Translations)
+                .Unwind<UnwoundDictionaryEntry, FullyUnwoundDictionaryEntry>(x => x.Translations.TranslationMetadata)
+                .Match(filter)
+                .SortBy(x => x.Translations.TranslationMetadata.IndexOnPage);
+            return aggregationPipeline.ToList();
         }
     }
 }

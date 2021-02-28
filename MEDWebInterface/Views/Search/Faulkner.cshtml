@@ -1,0 +1,33 @@
+﻿<script type="text/javascript" language="javascript" src="~/Scripts/faulkner.js"></script>
+<div class="page-header">
+    <h3 class="top_margin display-4">Faulkner Dictionary</h3>
+</div>
+<select class="js-example-basic-single chp" onchange="updatePageValues()">
+    <option></option>
+</select>
+
+<select class="js-example-basic-single pg">
+    <option></option>
+</select>
+
+<span class="input-group-btn">
+    <button class="btn btn-outline-dark" type="button" value="Submit" onclick="updatePageEntries()">
+        <i class="fas fa-search"></i>
+        Search
+    </button>
+</span>
+
+<table class="table table-hover" style="display:none; margin-top: 2em;" id="hiddenTable">
+    <thead style="width: 100%">
+        <tr>
+            <th>Hieroglyphs</th>
+            <th>Transliteration</th>
+            <th>Gardiner Signs</th>
+            <th>Translations</th>
+        </tr>
+    </thead>
+    <tbody id="resultBody"></tbody>
+</table>
+<p>
+    @Html.ActionLink("Back to Search", "Index")
+</p>
