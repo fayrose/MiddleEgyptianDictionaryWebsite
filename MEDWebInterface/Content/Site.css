@@ -66,6 +66,7 @@ textarea {
     max-width: 100%;
     background-position-x: 65%;
     background-position-y: 20%;
+    background-attachment: fixed;
 }
 
 .img_overlay {
