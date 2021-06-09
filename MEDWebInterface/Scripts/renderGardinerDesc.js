@@ -124,7 +124,8 @@ async function displayEntries(ev) {
     var async_func = async function (ev) {
         $('.table-hover').show()
         $('.table-hover > tbody').html('');
-        var cat = $(".js-example-basic-single").select2('data')[0].id
+        var cat = $(".js-example-basic-single").select2('data')[0].id;
+        $('#currentCat').text("Current Category - " + $(".js-example-basic-single").select2('data')[0].text);
         var keys = Object.keys(ResContext.signInfo);
         if (cat == 'A') {
             // Get keys & filter
