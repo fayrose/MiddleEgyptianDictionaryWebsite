@@ -57,8 +57,30 @@ var updatePageValues = function () {
     });
 }
 
-var updatePageEntries = function () {
+var updatePageEntries = function (which_page) {
     var page = $(".pg").select2("data")[0].id;
+    var desc = getPageDescription();
+    if (which_page == "next") {
+        if (page == 419) {
+            return;
+        }
+        page = parseInt($(".currentPg").text().split(": ")[1]);
+        page += 1;
+        while (!(page.toString() in desc) && page < 419) {
+            page += 1;
+        }
+    }
+    if (which_page == "previous") {
+        if (page == 17) {
+            return;
+        }
+        page = parseInt($(".currentPg").text().split(": ")[1]);
+        page -= 1;
+        while (!(page.toString() in desc) && page > 17) {
+            page -= 1;
+        }
+    }
+    $(".currentPg").text("Current Page: " + page);
     $.ajax({
         url: `/Search/FaulknerEntries?page=${page}`,
         type: 'GET',
@@ -66,13 +88,13 @@ var updatePageEntries = function () {
             $("#loadScreen").show();
         }
     }).done(async function (result) {
-        // console.log(result); // Removed for production
         /*
          * Hieroglyphs
          * Transliteration
          * Gardiner Signs
          * Translations
          */
+        $("tbody").empty();
         result.forEach(function (item) {
             var row = document.createElement("tr");
 
