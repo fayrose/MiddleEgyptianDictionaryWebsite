@@ -40,6 +40,10 @@ namespace MEDWebInterface
                 "~/Content/res.css"
                 ));
 
+            bundles.Add(new StyleBundle("~/Content/loading").Include(
+                "~/Content/loading.css"
+                ));
+
             bundles.Add(new ScriptBundle("~/bundles/res").Include(
                 "~/Scripts/res/res_aux.js",
                 "~/Scripts/res/res_points.js",

@@ -46,7 +46,13 @@ var updatePageValues = function () {
 
 var updatePageEntries = function () {
     var page = $(".pg").select2("data")[0].id;
-    $.ajax({ url: `/Search/FaulknerEntries?page=${page}`, type: 'GET' }).done(async function (result) {
+    $.ajax({
+        url: `/Search/FaulknerEntries?page=${page}`,
+        type: 'GET',
+        beforeSend: function () {
+            $("#loadScreen").show();
+        }
+    }).done(async function (result) {
         console.log(result);
         /*
          * Hieroglyphs
@@ -76,6 +82,7 @@ var updatePageEntries = function () {
             $("#resultBody").append(row);
 
             $("#hiddenTable").show();
+            $("#loadScreen").hide();
         });
         await new Promise(_ => ResWeb());
     });

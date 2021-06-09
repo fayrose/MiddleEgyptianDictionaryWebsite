@@ -2,6 +2,7 @@
 <div class="page-header">
     <h3 class="top_margin display-4">Faulkner Dictionary</h3>
 </div>
+
 <select class="js-example-basic-single chp" onchange="updatePageValues()">
     <option></option>
 </select>
@@ -26,7 +27,7 @@
             <th>Translations</th>
         </tr>
     </thead>
-    <tbody id="resultBody"></tbody>
+    <tbody id="resultBody"><div id="loadScreen" style="display:none" class="loading">Loading&#8230;</div></tbody>
 </table>
 <p>
     @Html.ActionLink("Back to Search", "Index")

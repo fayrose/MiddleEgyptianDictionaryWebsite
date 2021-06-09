@@ -5,6 +5,8 @@
         placeholder: "Choose a category",
         width: "auto",
         dropdownPosition: "below",
+        allowDuplicates: false,
+        sortSelectedBySelectionTime: false
     });
     $('.select2').css("margin-bottom", "1em");
 });
@@ -118,11 +120,11 @@ getCategories = function () {
     ];
 }
 
-function displayEntries() {
-    $(".js-example-basic-single").on('select2:select', async function (e) {
+async function displayEntries(ev) {
+    var async_func = async function (ev) {
         $('.table-hover').show()
         $('.table-hover > tbody').html('');
-        var cat = e.params.data.id;
+        var cat = $(".js-example-basic-single").select2('data')[0].id
         var keys = Object.keys(ResContext.signInfo);
         if (cat == 'A') {
             // Get keys & filter
@@ -144,6 +146,24 @@ function displayEntries() {
             $('.table-hover > tbody:last-child').append(
                 '<tr><td>' + glyphName + '</td><td>' + glyphDescription + '</td></tr>');
         }
-        await new Promise(_ => ResWeb());
-    });
+        return new Promise(function (resolve) {
+            ResWeb();
+            resolve();
+        });
+    };
+
+    var displayLoading = async function () {
+        $("#loadingScreen").show();
+    };
+
+    var removeLoading = function () {
+        $("#loadingScreen").hide();
+        $(".loading").hide();
+    };
+
+    displayLoading();
+    setTimeout(() => {
+        async_func(ev);
+        removeLoading();
+    }, 0);
 }

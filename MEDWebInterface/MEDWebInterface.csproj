@@ -376,6 +376,7 @@
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css" />
     <Content Include="Content\egypt.jpg" />
+    <Content Include="Content\loading.css" />
     <Content Include="Content\res.css" />
     <Content Include="Content\unknown_glyphs.txt" />
     <Content Include="favicon.ico" />

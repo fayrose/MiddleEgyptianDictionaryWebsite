@@ -3,10 +3,10 @@
     <h3 class="top_margin display-4">Gardiner Sign List</h3>
 </div>
 
-<select class="js-example-basic-single" onchange="displayEntries()">
+<select class="js-example-basic-single" onchange="displayEntries(event)">
     <option></option>
 </select>
-
+<div id="loadingScreen" style="display:none" class="loading">Loading&#8230;</div>
 <table class="table table-hover" style="display:none">
     <thead>
         <tr>
