@@ -1,4 +1,4 @@
-﻿using MEDWebInterface.Models;
+using MEDWebInterface.Models;
 using MiddleEgyptianDictionary;
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,8 @@ namespace MEDWebInterface.Controllers
     public class SearchController : Controller
     {
         WordFinder wf;
+        private const int DefaultPageSize = 50;
+        private const int MaxResultsInTempData = 500; // Limit TempData size
 
         // GET: SearchPage
         public ActionResult Index()
@@ -46,15 +48,28 @@ namespace MEDWebInterface.Controllers
         {
             try
             {
-                IEnumerable<DictionaryEntry> results = SearchDatabase(userInput);
-                // Redirect to proper route that displays
+                IEnumerable<DictionaryEntry> allResults = SearchDatabase(userInput);
+                var resultsList = allResults.ToList();
+                int totalCount = resultsList.Count;
+                
+                // Limit results stored in TempData to prevent session storage overflow
+                var limitedResults = resultsList.Take(MaxResultsInTempData).ToList();
+                
                 Result packaged = new Result()
                 { 
-                  Results = results,
-                  DisplayFormatted = userInput.DisplayFormatted
+                    Results = limitedResults.Take(DefaultPageSize),
+                    DisplayFormatted = userInput.DisplayFormatted,
+                    CurrentPage = 1,
+                    PageSize = DefaultPageSize,
+                    TotalResults = Math.Min(totalCount, MaxResultsInTempData)
                 };
-                TempData["results"] = packaged;
-                return RedirectToAction("Results");
+                
+                // Store all limited results for pagination
+                TempData["allResults"] = limitedResults;
+                TempData["displayFormatted"] = userInput.DisplayFormatted;
+                TempData["totalOriginal"] = totalCount;
+                
+                return RedirectToAction("Results", new { page = 1 });
             }
             catch (Exception ex)
             {
@@ -63,10 +78,47 @@ namespace MEDWebInterface.Controllers
             }
         }
 
-        public ActionResult Results()
+        public ActionResult Results(int page = 1)
         {
-            Result results = (Result)TempData["results"];
-            return View(results);
+            // Try to get cached results
+            var allResults = TempData.Peek("allResults") as List<DictionaryEntry>;
+            var displayFormatted = TempData.Peek("displayFormatted") as bool? ?? true;
+            var totalOriginal = TempData.Peek("totalOriginal") as int? ?? 0;
+            
+            if (allResults == null)
+            {
+                // No results in session - redirect to search
+                return RedirectToAction("Index");
+            }
+            
+            int totalResults = allResults.Count;
+            int totalPages = (int)Math.Ceiling((double)totalResults / DefaultPageSize);
+            
+            // Clamp page number
+            page = Math.Max(1, Math.Min(page, totalPages));
+            
+            var pagedResults = allResults
+                .Skip((page - 1) * DefaultPageSize)
+                .Take(DefaultPageSize)
+                .ToList();
+            
+            Result result = new Result()
+            {
+                Results = pagedResults,
+                DisplayFormatted = displayFormatted,
+                CurrentPage = page,
+                PageSize = DefaultPageSize,
+                TotalResults = totalResults
+            };
+            
+            // Pass info about truncation
+            if (totalOriginal > MaxResultsInTempData)
+            {
+                ViewBag.Truncated = true;
+                ViewBag.OriginalCount = totalOriginal;
+            }
+            
+            return View(result);
         }
 
         private void DefineVariables()

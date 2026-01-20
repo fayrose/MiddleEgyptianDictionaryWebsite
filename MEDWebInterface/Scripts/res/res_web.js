@@ -1,15 +1,55 @@
 /////////////////////////////////////////////////////////////////////////////
 // RES in web pages.
 
-// Make canvas for all hieroglyphic.
+// Queue for chunked canvas rendering
+ResWeb.renderQueue = [];
+ResWeb.isRendering = false;
+ResWeb.CHUNK_SIZE = 5; // Render 5 canvases per frame
+
+// Make canvas for all hieroglyphic (chunked to avoid blocking).
 function ResWeb() {
 	var canvass = document.getElementsByTagName("canvas");
 	for (var i = 0; i < canvass.length; i++) {
 		var canvas = canvass[i];
 		if (canvas.className.match(/\bres\b/)) 
-			ResWeb.makeSometime(canvas);
+			ResWeb.queueRender(canvas);
 	}
+	ResWeb.processQueue();
 }
+
+// Queue a canvas for rendering
+ResWeb.queueRender =
+function(canvas) {
+	ResWeb.renderQueue.push(canvas);
+};
+
+// Process render queue in chunks using requestAnimationFrame
+ResWeb.processQueue =
+function() {
+	if (ResWeb.renderQueue.length === 0) {
+		ResWeb.isRendering = false;
+		return;
+	}
+	
+	ResWeb.isRendering = true;
+	
+	requestAnimationFrame(function() {
+		// Process a chunk of canvases
+		var chunk = ResWeb.renderQueue.splice(0, ResWeb.CHUNK_SIZE);
+		
+		for (var i = 0; i < chunk.length; i++) {
+			ResWeb.makeSometime(chunk[i]);
+		}
+		
+		// Continue processing if more items remain
+		if (ResWeb.renderQueue.length > 0) {
+			ResWeb.processQueue();
+		} else {
+			ResWeb.isRendering = false;
+		}
+	});
+};
+
 // Make canvas for hieroglyphic in element.
 ResWeb.makeIn =
 function(elem) {

@@ -1,4 +1,4 @@
-﻿@model MEDWebInterface.Models.Result
+@model MEDWebInterface.Models.Result
 @using MEDWebInterface.Services
 @using MiddleEgyptianDictionary.Models
 @using MiddleEgyptianDictionary
@@ -8,6 +8,61 @@
 </div>
     @if (Model != null && Model.Results != null && Model.Results.Count() > 0)
     { 
+        <!-- Result count and pagination info -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">
+                Showing @((Model.CurrentPage - 1) * Model.PageSize + 1)-@Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalResults) of @Model.TotalResults results
+                @if (ViewBag.Truncated == true)
+                {
+                    <small class="text-warning">(truncated from @ViewBag.OriginalCount - refine your search)</small>
+                }
+            </span>
+        </div>
+        
+        <!-- Top pagination -->
+        @if (Model.TotalPages > 1)
+        {
+            <nav aria-label="Search results pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Results", new { page = Model.CurrentPage - 1 })" tabindex="-1">Previous</a>
+                    </li>
+                    @{
+                        int startPage = Math.Max(1, Model.CurrentPage - 2);
+                        int endPage = Math.Min(Model.TotalPages, Model.CurrentPage + 2);
+                        
+                        if (startPage > 1)
+                        {
+                            <li class="page-item"><a class="page-link" href="@Url.Action("Results", new { page = 1 })">1</a></li>
+                            if (startPage > 2)
+                            {
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            }
+                        }
+                        
+                        for (int i = startPage; i <= endPage; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Results", new { page = i })">@i</a>
+                            </li>
+                        }
+                        
+                        if (endPage < Model.TotalPages)
+                        {
+                            if (endPage < Model.TotalPages - 1)
+                            {
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            }
+                            <li class="page-item"><a class="page-link" href="@Url.Action("Results", new { page = Model.TotalPages })">@Model.TotalPages</a></li>
+                        }
+                    }
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Results", new { page = Model.CurrentPage + 1 })">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        }
+        
         <table class="table table-hover table-responsive-lg">
             <thead style="width: 100%">
                 <tr>
@@ -118,6 +173,50 @@
                 }
             </tbody>
         </table>
+        
+        <!-- Bottom pagination -->
+        @if (Model.TotalPages > 1)
+        {
+            <nav aria-label="Search results pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Results", new { page = Model.CurrentPage - 1 })" tabindex="-1">Previous</a>
+                    </li>
+                    @{
+                        int startPage = Math.Max(1, Model.CurrentPage - 2);
+                        int endPage = Math.Min(Model.TotalPages, Model.CurrentPage + 2);
+                        
+                        if (startPage > 1)
+                        {
+                            <li class="page-item"><a class="page-link" href="@Url.Action("Results", new { page = 1 })">1</a></li>
+                            if (startPage > 2)
+                            {
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            }
+                        }
+                        
+                        for (int i = startPage; i <= endPage; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Results", new { page = i })">@i</a>
+                            </li>
+                        }
+                        
+                        if (endPage < Model.TotalPages)
+                        {
+                            if (endPage < Model.TotalPages - 1)
+                            {
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            }
+                            <li class="page-item"><a class="page-link" href="@Url.Action("Results", new { page = Model.TotalPages })">@Model.TotalPages</a></li>
+                        }
+                    }
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link" href="@Url.Action("Results", new { page = Model.CurrentPage + 1 })">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        }
     }
     else
     {

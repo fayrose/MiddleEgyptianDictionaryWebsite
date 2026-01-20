@@ -14,39 +14,26 @@ namespace MEDWebInterface.Models
     {
         public IEnumerable<DictionaryEntry> Results { get; set; }
         public bool DisplayFormatted { get; set; }
-        public string[] UnknownGlyphs { get; }
+        
+        // Use cached unknown glyphs from Constants (loaded once at startup)
+        public string[] UnknownGlyphs => Constants.UnknownGlyphs;
+        
+        // Pagination properties
+        public int CurrentPage { get; set; } = 1;
+        public int PageSize { get; set; } = 50;
+        public int TotalResults { get; set; }
+        public int TotalPages => (int)Math.Ceiling((double)TotalResults / PageSize);
+        
         public Result()
         {
             Results = new List<DictionaryEntry>();
             DisplayFormatted = true;
-            UnknownGlyphs = GetUnknownGlyphs();
-        }
-        public string[] GetUnknownGlyphs()
-        {
-            try
-            {
-                if (File.Exists(Constants.UnknownGlyphPath))
-                {
-                    return File.ReadAllLines(Constants.UnknownGlyphPath);
-                }
-                else
-                {
-                    // Return empty array if file doesn't exist
-                    return new string[0];
-                }
-            }
-            catch (Exception)
-            {
-                // Graceful degradation: return empty array on any file read error
-                return new string[0];
-            }
         }
 
         public Result(bool displayFormatted)
         {
             Results = new List<DictionaryEntry>();
             DisplayFormatted = displayFormatted;
-            UnknownGlyphs = GetUnknownGlyphs();
         }
     }
 }
