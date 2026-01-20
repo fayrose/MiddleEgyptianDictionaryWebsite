@@ -113,8 +113,10 @@ function(f, c) {
 		ResWeb.fontsDone = true;
 		f();
 	} else if (c > 40) {
-		console.log("seem unable to load fonts: " + ResWeb.fontsLoaded());
-		alert("seem unable to load fonts; perhaps try again later?");
+		// Graceful degradation: log warning and continue without blocking
+		console.warn("Unable to load hieroglyphic fonts - using fallback. Details: " + ResWeb.fontsLoaded());
+		ResWeb.fontsDone = true; // Allow page to continue
+		f(); // Execute callback anyway
 	} else {
 		setTimeout(function(){ ResWeb.waitForFonts(f, c+1); }, 1000);
 	}

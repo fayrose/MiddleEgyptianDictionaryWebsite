@@ -53,7 +53,7 @@ var updatePageEntries = function () {
             $("#loadScreen").show();
         }
     }).done(async function (result) {
-        console.log(result);
+        // console.log(result); // Removed for production
         /*
          * Hieroglyphs
          * Transliteration
@@ -84,7 +84,7 @@ var updatePageEntries = function () {
             $("#hiddenTable").show();
             $("#loadScreen").hide();
         });
-        await new Promise(_ => ResWeb());
+        await new Promise(resolve => { ResWeb(); resolve(); });
     });
 }
 

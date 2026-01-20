@@ -97,7 +97,13 @@ namespace MEDWebInterface.Controllers
         public FileStreamResult Image(string key)
         {
             string input = key.Replace("AA", "J").Replace("Aa", "J");
-            var bitmap = (Bitmap)Properties.Resources.ResourceManager.GetObject(input);
+            var resourceObj = Properties.Resources.ResourceManager.GetObject(input);
+            if (resourceObj == null)
+            {
+                // Return null or empty response if resource not found
+                return null;
+            }
+            var bitmap = (Bitmap)resourceObj;
             MemoryStream stream = new MemoryStream();
             bitmap.Save(stream, ImageFormat.Png);
             stream.Seek(0, SeekOrigin.Begin);

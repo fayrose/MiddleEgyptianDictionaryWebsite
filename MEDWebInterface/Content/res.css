@@ -1,19 +1,23 @@
 @font-face {
 	font-family: 'Hieroglyphic';
 	src: url('NewGardiner.ttf') format('truetype');
+	font-display: swap;
 }
 @font-face {
 	font-family: 'HieroglyphicAux';
 	src: url('HieroglyphicAux.ttf') format('truetype');
+	font-display: swap;
 }
 @font-face {
 	font-family: 'HieroglyphicPlain';
 	src: url('CaslonRoman.ttf') format('truetype');
+	font-display: swap;
 }
 
 @font-face {
 	font-family: 'ExtendedGardiner';
-	src: url('ExtendedGardiner.ttf') format('truetype')
+	src: url('ExtendedGardiner.ttf') format('truetype');
+	font-display: swap;
 }
 
 span.hi {
@@ -70,6 +74,7 @@ span.low {
 @font-face {
 	font-family: 'Transliteration';
 	src: url('DejaVuSans-Bold.ttf') format('truetype');
+	font-display: swap;
 }
 
 span.trans {

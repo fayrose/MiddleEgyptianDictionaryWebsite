@@ -1,4 +1,4 @@
-﻿using MEDWebInterface.Properties;
+using MEDWebInterface.Properties;
 using MiddleEgyptianDictionary;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,23 @@ namespace MEDWebInterface.Models
         }
         public string[] GetUnknownGlyphs()
         {
-            return File.ReadAllLines(Constants.UnknownGlyphPath);
+            try
+            {
+                if (File.Exists(Constants.UnknownGlyphPath))
+                {
+                    return File.ReadAllLines(Constants.UnknownGlyphPath);
+                }
+                else
+                {
+                    // Return empty array if file doesn't exist
+                    return new string[0];
+                }
+            }
+            catch (Exception)
+            {
+                // Graceful degradation: return empty array on any file read error
+                return new string[0];
+            }
         }
 
         public Result(bool displayFormatted)
