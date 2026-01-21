@@ -1,4 +1,14 @@
-﻿$(document).ready(function () {
+﻿// Inject and show loading spinner immediately
+(function() {
+    // Create spinner element
+    var spinner = document.createElement('div');
+    spinner.id = 'faulknerLoadSpinner';
+    spinner.className = 'loading';
+    spinner.textContent = 'Loading...';
+    document.body.appendChild(spinner);
+})();
+
+$(document).ready(function () {
     var data = getCategories();
     $(".chp").select2({
         data: data,
@@ -19,6 +29,9 @@
         width: "auto",
         dropdownPosition: "below",
     });
+
+    // Hide loading spinner once dropdowns are ready
+    $("#faulknerLoadSpinner").hide();
 });
 
 var updatePageValues = function () {
