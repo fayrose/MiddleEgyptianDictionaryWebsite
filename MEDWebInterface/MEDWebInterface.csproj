@@ -2506,6 +2506,7 @@
     <Content Include="Scripts\res\res_syntax.js" />
     <Content Include="Scripts\res\res_web.js" />
     <Content Include="Scripts\searchform.js" />
+    <Content Include="Scripts\gardiner-signs.json" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
