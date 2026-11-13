@@ -87,8 +87,8 @@ namespace MEDWebInterface
         {
             var entryTable = Manager.GetExistingDbEntries();
             var filter = Builders<FullyUnwoundDictionaryEntry>.Filter.And(
-            Builders<FullyUnwoundDictionaryEntry>.Filter.Eq(x => (int)x.Translations.TranslationMetadata.DictionaryName, 4),
-            Builders<FullyUnwoundDictionaryEntry>.Filter.Eq(x => (int)x.Translations.TranslationMetadata.Page, page));
+            Builders<FullyUnwoundDictionaryEntry>.Filter.Eq(x => x.Translations.TranslationMetadata.DictionaryName, DataSource.faulkner),
+            Builders<FullyUnwoundDictionaryEntry>.Filter.Eq(x => x.Translations.TranslationMetadata.Page, (int?)page));
 
             var aggregationPipeline = entryTable.Aggregate()
                 .Unwind<DictionaryEntry, UnwoundDictionaryEntry>(x => x.Translations)

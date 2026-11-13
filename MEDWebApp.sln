@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEDWebInterface", "MEDWebInterface\MEDWebInterface.csproj", "{44FC1710-A9E1-472C-B50E-FC657792CB4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddleEgyptianDictionary", "..\MiddleEgyptianDictionary\MiddleEgyptianDictionary\MiddleEgyptianDictionary.csproj", "{C7D64907-59EF-47A7-BC51-4EA566DE5F19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddleEgyptianDictionary", "..\MiddleEgyptianDataset\MiddleEgyptianDictionary\MiddleEgyptianDictionary.csproj", "{C7D64907-59EF-47A7-BC51-4EA566DE5F19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
